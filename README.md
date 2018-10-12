@@ -41,9 +41,8 @@ $ DJANGO_SETTINGS_MODULE=snuclub.settings.local python manage.py runserver
 ```
 - Run frontend server
 ```
-$ npm install
-$ npm start
-$ npm test
+$ yarn
+$ yarn start
 ```
 
 
