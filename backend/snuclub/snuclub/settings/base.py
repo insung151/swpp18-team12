@@ -25,8 +25,6 @@ SECRET_KEY = 'ao%p$7lz=l)f@o$kos_v%4k1dy4wq%@3mpd5izw^2vkx+ah$j2'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-
-
 # Application definition
 
 INSTALLED_APPS = [
@@ -37,8 +35,10 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
 
+    'accounts',
+
     'corsheaders',
-    'rest_framework'
+    'rest_framework',
 ]
 
 MIDDLEWARE = [
