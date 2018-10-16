@@ -24,6 +24,9 @@ else:
             'NAME': load_credential('DEV_DATABASE_NAME'),
             'USER': load_credential('DEV_DATABASE_USER'),
             'PASSWORD': load_credential('DEV_DATABASE_PASSWORD'),
-            'PORT': '3314'
+            'PORT': '3314',
+            'OPTIONS': {
+                'init_command': "SET sql_mode='STRICT_TRANS_TABLES'"
+            }
         }
     }
