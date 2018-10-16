@@ -1,0 +1,20 @@
+language: python
+
+cache: pip
+
+python: 3.6
+
+env:
+  - SETTINGS_MODE=dev
+
+before_install:
+  - openssl aes-256-cbc -K $encrypted_2442157e7c11_key -iv $encrypted_2442157e7c11_iv
+    -in secret.json.enc -out backend/snuclub/snuclub/settings/secret.json -d
+  - cd backend
+
+install:
+  - pip install -r requirements.txt
+  - pip install coverage
+
+script:
+  - coverage run snuclub/manage.py test --settings=snuclub.settings.aws
