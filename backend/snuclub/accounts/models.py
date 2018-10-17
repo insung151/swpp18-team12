@@ -38,6 +38,7 @@ class UserManager(BaseUserManager):
         user.is_staff = True
         user.is_active = True
         user.save()
+        UserProfile.objects.create(user=user)
 
         return user
 
