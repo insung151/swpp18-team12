@@ -32,7 +32,6 @@ class UserTestCase(TestCase):
         # year of admission must be in (1800 ~ 2500)
         for data in invalid_data:
             with self.assertRaises(ValidationError):
-                print(data)
                 UserProfile(**data).save()
 
         profile.save()
