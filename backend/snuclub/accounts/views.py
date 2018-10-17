@@ -20,12 +20,7 @@ class LoginApiView(APIView):
                             password=serializer.validated_data['password'])
         if user is None:
             return Response({
-                'message': '이메일 또는 비밀번호를 확인해 주세요.'
-            }, status=status.HTTP_401_UNAUTHORIZED)
-
-        if not user.is_active:
-            return Response({
-                'message': '이메일 인증을 완료해주세요.'
+                'message': 'Email verification is incomplete or your account information is incorrect.'
             }, status=status.HTTP_401_UNAUTHORIZED)
 
         login(request, user)
