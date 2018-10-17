@@ -15,7 +15,15 @@ if ENV_SETTINGS_MODE == 'prod':
     DATABASES = {
 
     }
-
+elif ENV_SETTINGS_MODE == 'travis':
+    DATABASES = {
+        'default': {
+            'ENGINE': 'django.db.backends.mysql',
+            'HOST': '127.0.0.1',
+            'NAME': 'snuclub_travis',
+            'USER': 'travis'
+        }
+    }
 else:
     DATABASES = {
         'default': {

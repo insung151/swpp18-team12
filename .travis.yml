@@ -5,11 +5,13 @@ cache: pip
 python: 3.6
 
 env:
-  - SETTINGS_MODE=dev
+  - SETTINGS_MODE=travis
+
+services:
+  - mysql
 
 before_install:
-  - openssl aes-256-cbc -K $encrypted_2442157e7c11_key -iv $encrypted_2442157e7c11_iv
-    -in secret.json.enc -out backend/snuclub/snuclub/settings/secret.json -d
+  - mysql -e 'CREATE DATABASE snuclub_travis;'
   - cd backend
 
 install:
