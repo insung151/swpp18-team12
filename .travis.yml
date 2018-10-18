@@ -17,6 +17,10 @@ before_install:
 install:
   - pip install -r requirements.txt
   - pip install coverage
+  - pip install python-coveralls
 
 script:
   - coverage run snuclub/manage.py test --settings=snuclub.settings.aws
+
+after_script:
+  - coveralls
