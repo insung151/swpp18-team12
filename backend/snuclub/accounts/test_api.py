@@ -1,9 +1,4 @@
-import json
-
-from django.contrib.auth.models import Group
-
 from rest_framework import status
-from rest_framework.authtoken.models import Token
 from rest_framework.test import APITestCase, APIClient
 
 from django.contrib.auth import get_user_model
@@ -36,7 +31,8 @@ class AccountsLoginTestCase(APITestCase):
         self.assertIsNotNone(User.objects.get(email='test@testcase.com'))
         self.assertIsNotNone(UserProfile.objects.get(user__email='test@testcase.com'))
 
-    def test_login_api(self):
+    def test_login_and_logout_api(self):
+        # create_user
         user = User.objects.create_user(
             email='test2@testcase.com',
             password='qwer1234',
@@ -54,3 +50,11 @@ class AccountsLoginTestCase(APITestCase):
 
         assert response.status_code == 200
         assert response.json()['username'] == 'username'
+
+        url = '/api/accounts/logout/'
+        response = self.client.get(url)
+        assert response.status_code == 200
+
+        # already logged out
+        response = self.client.get(url)
+        assert response.status_code == 403
