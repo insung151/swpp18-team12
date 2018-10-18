@@ -6,6 +6,8 @@
 ███████║██║ ╚████║╚██████╔╝╚██████╗███████╗╚██████╔╝██████╔╝  
 ╚══════╝╚═╝  ╚═══╝ ╚═════╝  ╚═════╝╚══════╝ ╚═════╝ ╚═════╝  
 </pre>
+[![Coverage Status](https://coveralls.io/repos/github/swsnu/swpp18-team12/badge.svg?branch=master)](https://coveralls.io/github/swsnu/swpp18-team12?branch=master)
+<br>
 [![송호준](https://badgen.net/badge/송호준/hojunroks/purple)](https://github.com/hojunroks)
 [![이영재](https://badgen.net/badge/이영재/snumath/purple)](https://github.com/snumath)
 [![황인성](https://badgen.net/badge/황인성/insung151/purple)](https://github.com/insung151)
