@@ -58,3 +58,34 @@ class AccountsLoginTestCase(APITestCase):
         # already logged out
         response = self.client.get(url)
         assert response.status_code == 403
+
+    def test_change_password(self):
+
+        old_password = 'qwer1234'
+        new_password = '1234qwer'
+
+        # create_user
+        user = User.objects.create_user(
+            email='test12@testcase.com',
+            password=old_password,
+            username='username'
+        )
+        user.is_active = True
+        user.save()
+        self.client.login(
+            username='test12@testcase.com',
+            password=old_password
+        )
+
+        url = '/api/accounts/change_password/'
+        data = {
+            "old_password": old_password,
+            'new_password': new_password
+        }
+        response = self.client.put(url, data=data)
+        assert response.status_code == 200
+
+        is_correct = self.client.login(
+            username='test12@testcase.com',
+            password=new_password)
+        self.assertEqual(is_correct, True)
