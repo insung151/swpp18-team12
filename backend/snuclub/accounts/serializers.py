@@ -2,18 +2,14 @@ import re
 
 from rest_framework import serializers
 
+from accounts.fields import PasswordField
 from accounts.models import User, UserProfile
 
 
 class LoginSerializer(serializers.ModelSerializer):
     email = serializers.EmailField(required=True)
     username = serializers.CharField(read_only=True)
-    password = serializers.CharField(
-        min_length=8,
-        write_only=True,
-        required=True,
-        style={'input_type': 'password'}
-    )
+    password = PasswordField()
 
     class Meta:
         model = User
@@ -23,19 +19,8 @@ class LoginSerializer(serializers.ModelSerializer):
 class SignUpSerializer(serializers.Serializer):
     email = serializers.EmailField()
     username = serializers.CharField()
-    password = serializers.CharField(
-        min_length=8,
-        write_only=True,
-        required=True,
-        style={'input_type': 'password'}
-    )
-    password_confirmation = serializers.CharField(
-        min_length=8,
-        write_only=True,
-        required=True,
-        style={'input_type': 'password'}
-
-    )
+    password = PasswordField()
+    password_confirmation = PasswordField()
     year_of_admission = serializers.IntegerField(
         max_value=2500,
         min_value=1800,
@@ -55,15 +40,15 @@ class SignUpSerializer(serializers.Serializer):
 
     def validate_password(self, value):
         pattern = r'^(?=.*\d)(?=.*[a-zA-Z])'
-        if re.match(pattern, value):
-            return value
-        else:
+        if not re.match(pattern, value):
             raise serializers.ValidationError("Invalid password")
+        return value
 
-    def validate_passward_confirmation(self, value):
+    def validate_password_confirmation(self, value):
         password = self.get_initial().get('password')
         if password != value:
             raise serializers.ValidationError("Password must be same")
+        return value
 
     def create(self, validated_data):
         user = User.objects.create_user(
@@ -77,3 +62,13 @@ class SignUpSerializer(serializers.Serializer):
             department=validated_data.get('department', None)
         )
         return user
+
+
+class ChangePasswordSerializer(serializers.Serializer):
+    old_password = PasswordField()
+    new_password = PasswordField()
+
+    def validate_new_password(self, value):
+        if (value == self.initial_data['old_password']):
+            raise serializers.ValidationError("New password must be different with old")
+        return value
