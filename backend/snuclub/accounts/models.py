@@ -1,6 +1,5 @@
 from django.contrib.auth.base_user import AbstractBaseUser, BaseUserManager
 from django.contrib.auth.models import PermissionsMixin
-from django.core.exceptions import ValidationError
 from django.db import models
 
 from core.fields import IntegerRangeField
@@ -21,9 +20,6 @@ class UserManager(BaseUserManager):
         user = self.model(username=username, email=self.normalize_email(email))
         user.set_password(password)
         user.save()
-
-        # Todo Activate 이메일 전송 필요
-
         return user
 
     def create_superuser(self, username, email, password):
