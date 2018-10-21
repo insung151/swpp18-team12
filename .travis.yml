@@ -19,8 +19,11 @@ install:
   - pip install coverage
   - pip install python-coveralls
 
+before_script:
+  - cd snuclub
+
 script:
-  - coverage run snuclub/manage.py test --settings=snuclub.settings.aws
+  - coverage run manage.py test --settings=snuclub.settings.aws
 
 after_script:
   - coveralls
