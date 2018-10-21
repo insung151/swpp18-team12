@@ -4,19 +4,24 @@ import { NgModule } from '@angular/core';
 import { AppComponent } from './app.component';
 import { SignInComponent } from './sign-in/sign-in.component';
 import { MainComponent } from './main/main.component';
-import { AppRoutingModule } from './/app-routing.module';
+import { AppRoutingModule } from './app-routing.module';
+
+import { AuthenticationService } from './service/authentication.service';
 
 @NgModule({
   declarations: [
     AppComponent,
     SignInComponent,
-    MainComponent
+    MainComponent,
   ],
   imports: [
     BrowserModule,
     AppRoutingModule
   ],
-  providers: [],
+  providers: [
+    AuthenticationService
+    // TODO: Fix Dependency Inejction Error. I think I have to ask TA about it.
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
