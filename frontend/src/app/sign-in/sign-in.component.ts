@@ -14,20 +14,18 @@ export class SignInComponent implements OnInit {
 
   private previousUrl: string;
 
-  
+
   constructor(private authenticationService: AuthenticationService,
               private router: Router) { }
 
-              /*
   async logIn(email: string, password: string): Promise<void> {
-    const res = await this.authenticationService.logIn(email, password);
+    const res: boolean = await this.authenticationService.logIn(email, password);
     if (res) {
       this.router.navigateByUrl(this.previousUrl); // login success
     } else {
-      alert('something wrong'); // TODO: login failed
+      alert('login failed'); // TODO: login failed
     }
   }
-  */
 
   ngOnInit() {
   }

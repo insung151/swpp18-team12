@@ -6,16 +6,16 @@ import { getCSRFHeaders } from '../../util/headers';
 export class AuthenticationService {
 
   private headers: HttpHeaders = new HttpHeaders({ 'Content-Type': 'application/json' });
-  // const url = '/api/account';
+  // const url = '/api/accounts';
 
   // login function
   // TODO: connect backend and frontend (solve CRSF problem)
   async logIn(email: string, password: string): Promise<boolean> {
-    const url = 'api/account/login';
-    const res: any = await this.http.post(url,
-      {'email': email, 'password': password }, { headers: getCSRFHeaders(), withCredentials: true})
-      .toPromise();
+    const url = 'api/accounts/login/';
     try {
+      const res: any = await this.http.post(url,
+        JSON.stringify({'email': email, 'password': password }), { headers: getCSRFHeaders(), withCredentials: true})
+      .toPromise();
       // Successful login
       if (res.status === 200) {
         let token = '';
@@ -27,14 +27,20 @@ export class AuthenticationService {
       } else if (res.status === 401) {
         // 'Email verification is incomplete or your account information is incorrect.'
         alert(res.message);
+        return false;
       }
-    } catch {
+    } catch (e) {
       // TODO: Error Handler
+      if (e.status === 401) {
+        alert(`${e.status}, ${e.statusText}`);
+      } else if (e.status === 400) {
+        alert('Wrong Format');
+      }
     }
   }
 
   async logOut(): Promise<boolean> {
-    const url = `/api/account/signout`;
+    const url = 'api/accounts/signout/';
     const res = await this.http.get(url).toPromise();
     try {
       localStorage.removeItem('currentUser');
@@ -55,7 +61,7 @@ export class AuthenticationService {
     username: string,
     admission: number,
     department: string): Promise<boolean> {
-    const url = 'api/account/signup';
+    const url = 'api/accounts/signup/';
     const res: any = await this.http.post(url,
       { email: email,
         password: password,
@@ -80,9 +86,9 @@ export class AuthenticationService {
   TODO: Finish changePassword. 1) check valid user 2) check pw change 3) put api
   */
 
-  
+
   async changePassword(old_password: string, new_password: string): Promise<boolean> {
-    const url = 'api/account/change_password';
+    const url = 'api/accounts/change_password/';
     const res: any = await this.http.put(url,
       {'old_password': old_password, 'new_password': new_password },
       { headers: getCSRFHeaders(), withCredentials: true})
@@ -103,7 +109,7 @@ export class AuthenticationService {
       // TODO: Error Handler
     }
   }
-  
+
 
   constructor(private http: HttpClient) { }
 }
