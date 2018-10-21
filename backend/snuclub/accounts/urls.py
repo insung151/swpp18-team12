@@ -7,5 +7,5 @@ urlpatterns = [
     path('logout/', LogoutApiView.as_view(), name='logout'),
     path('signup/', SignUpApiView.as_view(), name='signup'),
     path('change_password/', ChangePasswordAPIView.as_view(), name='change_password'),
-    path(r'activate/<username>/<token>/',ActivateUserAPIView.as_view(), name='activate'),
+    path('activate/<username>/<token>/', ActivateUserAPIView.as_view(), name='activate'),
 ]

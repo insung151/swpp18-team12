@@ -92,4 +92,3 @@ class ActivateUserAPIView(GenericAPIView):
                             status=status.HTTP_200_OK)
         return Response({'message':'Activation link is invalid! username = {}'.format(username)},
                             status=status.HTTP_403_FORBIDDEN)
-

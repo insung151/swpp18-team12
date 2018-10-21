@@ -32,6 +32,7 @@ class AccountsLoginTestCase(APITestCase):
         self.assertEqual(response.status_code, status.HTTP_201_CREATED)
         self.assertIsNotNone(User.objects.get(email='test@testcase.com'))
         self.assertIsNotNone(UserProfile.objects.get(user__email='test@testcase.com'))
+
         #Email verification test
         token = account_activation_token.make_token("google")
         vurl = '/api/accounts/activate/google/{}/'.format(token)
