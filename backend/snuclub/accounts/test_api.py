@@ -5,6 +5,8 @@ from django.contrib.auth import get_user_model
 
 from accounts.models import UserProfile
 
+from .tokens import account_activation_token
+
 User = get_user_model()
 
 
@@ -30,6 +32,15 @@ class AccountsLoginTestCase(APITestCase):
         self.assertEqual(response.status_code, status.HTTP_201_CREATED)
         self.assertIsNotNone(User.objects.get(email='test@testcase.com'))
         self.assertIsNotNone(UserProfile.objects.get(user__email='test@testcase.com'))
+        #Email verification test
+        token = account_activation_token.make_token("google")
+        vurl = '/api/accounts/activate/google/{}/'.format(token)
+        response2 = client.get(vurl)
+        self.assertEqual(response2.status_code, status.HTTP_200_OK)
+        user = User.objects.get(email='test@testcase.com')
+        self.assertEqual(user.is_active, True)
+
+
 
     def test_login_and_logout_api(self):
         # create_user
@@ -58,6 +69,7 @@ class AccountsLoginTestCase(APITestCase):
         # already logged out
         response = self.client.get(url)
         assert response.status_code == 403
+
 
     def test_change_password(self):
 

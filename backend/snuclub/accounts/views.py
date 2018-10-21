@@ -100,7 +100,6 @@ class ActivateUserAPIView(APIView):
         if user is not None and account_activation_token.check_token(userid, token):
             user.is_active = True
             user.save()
-            login(request, user)
             # return redirect('home')
             return Response({'message':'Thank you for your email confirmation. Now you can login your account.'})
         else:
