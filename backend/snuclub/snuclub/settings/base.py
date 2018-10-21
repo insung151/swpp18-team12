@@ -148,3 +148,9 @@ AUTH_USER_MODEL = 'accounts.User'
 
 # CORS see : https://github.com/ottoyiu/django-cors-headers/
 CORS_ALLOW_CREDENTIALS = True
+
+######## EMAIL SETTINGS
+EMAIL_USE_TLS = True
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_PORT = 587
+
