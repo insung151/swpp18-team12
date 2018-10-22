@@ -33,7 +33,6 @@ import { SignUpComponent } from './sign-up/sign-up.component';
   ],
   providers: [
     AuthenticationService
-    // TODO: Fix Dependency Inejction Error. I think I have to ask TA about it.
   ],
   bootstrap: [AppComponent]
 })

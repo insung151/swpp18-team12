@@ -6,10 +6,7 @@ import { getCSRFHeaders } from '../../util/headers';
 export class AuthenticationService {
 
   private headers: HttpHeaders = new HttpHeaders({ 'Content-Type': 'application/json' });
-  // const url = '/api/accounts';
 
-  // login function
-  // TODO: connect backend and frontend (solve CRSF problem)
   async logIn(email: string, password: string): Promise<boolean> {
     const url = 'api/accounts/login/';
     try {
@@ -31,18 +28,21 @@ export class AuthenticationService {
       }
     } catch (e) {
       // TODO: Error Handler
-      // if (e.status === 401) {
-        alert(`${e.status}, ${e.statusText}`);
-      // } else if (e.status === 400) {
-        // alert('Wrong Format');
-      // }
+      alert(`${e.status}, ${e.statusText}`);
     }
   }
 
+  loggedIn(): boolean {
+    if (localStorage.getItem('currentUser')) {
+      return true;
+    }
+    return false;
+  }
+
   async logOut(): Promise<boolean> {
-    const url = 'api/accounts/signout/';
+    const url = 'api/accounts/logout/';
     try {
-      const res = await this.http.get(url).toPromise();
+      const res = await this.http.get(url, { headers: getCSRFHeaders(), withCredentials: true, observe: 'response'}).toPromise();
       localStorage.removeItem('currentUser');
       return true;
     } catch {
@@ -52,8 +52,6 @@ export class AuthenticationService {
     }
   }
 
-  // TODO: Match variable name as DB in backend.
-  // TODO: Error handling
   async signUp(
     email: string,
     password: string,
@@ -96,21 +94,16 @@ export class AuthenticationService {
     try {
       const res: any = await this.http.put(url,
         {'old_password': old_password, 'new_password': new_password },
-        { headers: getCSRFHeaders(), withCredentials: true})
+        { headers: getCSRFHeaders(), withCredentials: true, observe: 'response'})
         .toPromise();
         // Successfully changed
       if (res.status === 200) {
-        // let token = '';
-        // if (document.cookie) {
-        //   token = document.cookie.split('csrftoken=')[ 1 ].split(';')[ 0 ];
-        // }
-        // localStorage.setItem('currentUser', JSON.stringify({ 'token' : token }));
         return true;
-      } else if (res.status === 401) {
-        alert(res.message);
+      } else {
+        alert('Unexpeected in changePassword'); // Should not be called
       }
-    } catch {
-      // TODO: Error Handler
+    } catch (e) {
+      alert(`${e.status}, ${e.statusText}`);
     }
   }
 
