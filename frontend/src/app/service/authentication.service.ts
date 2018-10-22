@@ -14,7 +14,7 @@ export class AuthenticationService {
     const url = 'api/accounts/login/';
     try {
       const res: any = await this.http.post(url,
-        JSON.stringify({'email': email, 'password': password }), { headers: getCSRFHeaders(), withCredentials: true})
+        JSON.stringify({'email': email, 'password': password }), { headers: getCSRFHeaders(), withCredentials: true, observe: 'response'})
       .toPromise();
       // Successful login
       if (res.status === 200) {
@@ -31,18 +31,18 @@ export class AuthenticationService {
       }
     } catch (e) {
       // TODO: Error Handler
-      if (e.status === 401) {
+      // if (e.status === 401) {
         alert(`${e.status}, ${e.statusText}`);
-      } else if (e.status === 400) {
-        alert('Wrong Format');
-      }
+      // } else if (e.status === 400) {
+        // alert('Wrong Format');
+      // }
     }
   }
 
   async logOut(): Promise<boolean> {
     const url = 'api/accounts/signout/';
-    const res = await this.http.get(url).toPromise();
     try {
+      const res = await this.http.get(url).toPromise();
       localStorage.removeItem('currentUser');
       return true;
     } catch {
@@ -59,28 +59,32 @@ export class AuthenticationService {
     password: string,
     password_confirmation: string,
     username: string,
-    admission: number,
+    year_of_admission: number,
     department: string): Promise<boolean> {
     const url = 'api/accounts/signup/';
-    const res: any = await this.http.post(url,
-      { email: email,
-        password: password,
-        password_confirmation: password_confirmation,
-        username: username,
-        admission: admission,
-        department: department},
-      { headers: getCSRFHeaders() })
-      .toPromise();
     try {
+      const res: any = await this.http.post(url,
+        JSON.stringify({ 'email': email,
+          'username': username,
+          'password': password,
+          'password_confirmation': password_confirmation,
+          'year_of_admission': year_of_admission,
+          'department': department}),
+        { headers: getCSRFHeaders(), withCredentials: true, observe: 'response' })
+        .toPromise();
       if (res.status === 201) {
-        return true;
-      } else if (res.status === 400) {
-        alert('Bad Request'); // TODO: Handle bad request
+        return true; // successfully logined
+      } else {
+        alert('Unexpected in signUp'); // should not be called
+        return false;
       }
     } catch (e) {
-      console.dir(e); // TODO: Make Error Handler
+      // TODO: Make error handler
+      alert(`${e.status}, ${e.statusText}`);
+      return false;
     }
   }
+  // multipart/form-data; boundary=----WebKitFormBoundaryd2txpbjaUTcAeQmY
 
   /*
   TODO: Finish changePassword. 1) check valid user 2) check pw change 3) put api
@@ -89,12 +93,12 @@ export class AuthenticationService {
 
   async changePassword(old_password: string, new_password: string): Promise<boolean> {
     const url = 'api/accounts/change_password/';
-    const res: any = await this.http.put(url,
-      {'old_password': old_password, 'new_password': new_password },
-      { headers: getCSRFHeaders(), withCredentials: true})
-      .toPromise();
     try {
-      // Successfully changed
+      const res: any = await this.http.put(url,
+        {'old_password': old_password, 'new_password': new_password },
+        { headers: getCSRFHeaders(), withCredentials: true})
+        .toPromise();
+        // Successfully changed
       if (res.status === 200) {
         // let token = '';
         // if (document.cookie) {
