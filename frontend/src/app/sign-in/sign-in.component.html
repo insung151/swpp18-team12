@@ -1,5 +1,7 @@
-<div id="container">
-  <div><input class="input" #email id="email-input" type="email" placeholder="Email"></div>
-  <div><input class="input" #password id="pw-input" type="password" placeholder="Password"></div>
-  <div><button (click)="logIn(email.value, password.value)" class="btn_global" id="signin-button">Submit!</button></div>
+<div><input class="form-control" #email id="email-input" type="email" placeholder="Email"></div>
+<div><input class="form-control" #password id="pw-input" type="password" placeholder="Password"></div>
+<div><button (click)="logIn(email.value, password.value)" class="btn btn-primary" id="signin-button">Submit!</button>
+
+<div>
+  New to SNUCLUB? <a [routerLink]="['/signup']">Create an account.</a>
 </div>
