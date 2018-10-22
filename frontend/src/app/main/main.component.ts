@@ -1,5 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 
+import { FormsModule } from '@angular/forms';
+import { Router } from '@angular/router';
+
+import { AuthenticationService } from '../service/authentication.service';
+
 @Component({
   selector: 'app-main',
   templateUrl: './main.component.html',
@@ -7,9 +12,19 @@ import { Component, OnInit } from '@angular/core';
 })
 export class MainComponent implements OnInit {
 
-  constructor() { }
+  private loggedIn: boolean;
+
+  constructor(private authenticationService: AuthenticationService,
+              private router: Router) { }
 
   ngOnInit() {
+    this.loggedIn = this.authenticationService.loggedIn();
+  }
+
+  logout(): void {
+    if (this.authenticationService.logOut()) {
+      this.loggedIn = false;
+    }
   }
 
 }
