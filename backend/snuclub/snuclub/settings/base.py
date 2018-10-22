@@ -145,3 +145,6 @@ REST_FRAMEWORK = {
 }
 
 AUTH_USER_MODEL = 'accounts.User'
+
+# CORS see : https://github.com/ottoyiu/django-cors-headers/
+CORS_ALLOW_CREDENTIALS = True
