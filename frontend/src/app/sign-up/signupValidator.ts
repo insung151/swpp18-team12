@@ -21,7 +21,7 @@ export class SignupValidator {
     }
 
     // TODO: delete regexp on front or back.
-    const passwordReg: RegExp = new RegExp('^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$'); // ^(?=.*\d)(?=.*[a-zA-Z])
+    const passwordReg: RegExp = new RegExp(''); // '^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$'); // ^(?=.*\d)(?=.*[a-zA-Z])
     if (!passwordReg.test(password)) {
       control.get('password').setErrors({ invalidPassword : true });
     }

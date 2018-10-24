@@ -1,6 +1,19 @@
-<div><input class="form-control" #email id="email-input" type="email" placeholder="Email"></div>
-<div><input class="form-control" #password id="pw-input" type="password" placeholder="Password"></div>
-<div><button (click)="logIn(email.value, password.value)" class="btn btn-primary" id="signin-button">Submit!</button>
+<form [formGroup]="signInForm" (submit)="logIn()">
+
+  <!-- Email Input -->
+  <div class="col-3">
+    <input class="form-control" id="email-input" name="email" type="email" placeholder="Email" [formControl]="signInForm.controls['email']">
+  </div>
+
+  <!-- Password Input -->
+  <div class="col-3">
+    <input class="form-control" id="pw-input" name="password" type="password" placeholder="Password" [formControl]="signInForm.controls['password']">
+  </div>
+
+  <div class="col-3">
+    <button class="btn btn-primary" id="signin-button" type="submit">Submit!</button>
+  </div>
+</form>
 
 <div>
   New to SNUCLUB? <a [routerLink]="['/signup']">Create an account.</a>
