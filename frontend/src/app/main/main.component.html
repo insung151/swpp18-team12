@@ -4,6 +4,7 @@
 
 <div *ngIf="loggedIn">
   <button class="btn btn-danger" (click)="logout()">Logout</button>
+  <button class="btn btn-primary" [routerLink]="['/change_password']">Change Password</button>
 </div>
 <div *ngIf="!loggedIn">
   <button class="btn btn-primary" [routerLink]="['/sign_in']">Login</button>
