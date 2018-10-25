@@ -36,6 +36,7 @@ INSTALLED_APPS = [
 
     'accounts',
     'core',
+    'club',
 
     'corsheaders',
     'rest_framework',
