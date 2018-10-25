@@ -19,7 +19,7 @@ export class AuthenticationService {
         if (document.cookie) {
           token = document.cookie.split('csrftoken=')[ 1 ].split(';')[ 0 ];
         }
-        localStorage.setItem('currentUser', JSON.stringify({ 'token' : token }));
+        localStorage.setItem('currentUser', JSON.stringify({ 'token' : token, 'username': res.body['username'] }));
         return true;
       } else if (res.status === 401) {
         // 'Email verification is incomplete or your account information is incorrect.'
@@ -37,6 +37,14 @@ export class AuthenticationService {
       return true;
     }
     return false;
+  }
+
+  getUserName(): string {
+    const user = localStorage.getItem('currentUser');
+    if (user) {
+      return JSON.parse(user)['username'];
+    }
+    return '';
   }
 
   async logOut(): Promise<boolean> {
@@ -82,11 +90,6 @@ export class AuthenticationService {
       return false;
     }
   }
-  // multipart/form-data; boundary=----WebKitFormBoundaryd2txpbjaUTcAeQmY
-
-  /*
-  TODO: Finish changePassword. 1) check valid user 2) check pw change 3) put api
-  */
 
 
   async changePassword(old_password: string, new_password: string): Promise<boolean> {
