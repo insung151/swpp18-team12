@@ -74,3 +74,7 @@ class UserProfile(models.Model):
     def save(self, *args, **kwargs):
         self.full_clean()
         super(UserProfile, self).save(*args, **kwargs)
+
+    @property
+    def username(self):
+        return self.user.username
