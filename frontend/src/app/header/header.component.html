@@ -4,7 +4,7 @@
     <a routerLink="/">Main</a>
     <a routerLink="/">Main</a>
     <span class="right" *ngIf="loggedIn">
-      <span>Hello, {{this.username}}</span>
+      <span>Hello, {{this.username}}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
       <button class="btn btn-danger" (click)="logout()">Logout</button>
       <button class="btn btn-primary" [routerLink]="['/change_password']">Change Password</button>
     </span>

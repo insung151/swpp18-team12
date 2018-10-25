@@ -9,7 +9,6 @@ export class SignupValidator {
     const year_of_admission: number = control.get('year_of_admission').value;
     const department: string = control.get('department').value;
 
-    // TODO: Match RegExp to backend
     const emailReg: RegExp = new RegExp('^[^@\\s]+[@][^@\\s]+[.][a-z]{2,3}$');
     if (!emailReg.test(email)) {
       control.get('email').setErrors({ invalidEmail : true });
@@ -20,8 +19,7 @@ export class SignupValidator {
       control.get('username').setErrors({ invalidUsername : true });
     }
 
-    // TODO: delete regexp on front or back.
-    const passwordReg: RegExp = new RegExp(''); // '^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$'); // ^(?=.*\d)(?=.*[a-zA-Z])
+    const passwordReg: RegExp = /(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$/;
     if (!passwordReg.test(password)) {
       control.get('password').setErrors({ invalidPassword : true });
     }

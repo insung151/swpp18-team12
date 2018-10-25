@@ -13,22 +13,20 @@ export class AuthenticationService {
       const res: any = await this.http.post(url,
         JSON.stringify({'email': email, 'password': password }), { headers: getCSRFHeaders(), withCredentials: true, observe: 'response'})
       .toPromise();
-      // Successful login
-      if (res.status === 200) {
+      if (res.status === 200) { // Successful login
         let token = '';
         if (document.cookie) {
           token = document.cookie.split('csrftoken=')[ 1 ].split(';')[ 0 ];
         }
         localStorage.setItem('currentUser', JSON.stringify({ 'token' : token, 'username': res.body['username'] }));
         return true;
-      } else if (res.status === 401) {
-        // 'Email verification is incomplete or your account information is incorrect.'
-        alert(res.message);
+      } else {
+        alert('Unexpected in logIn'); // Should not be called
         return false;
       }
     } catch (e) {
-      // TODO: Error Handler
-      alert(`${e.status}, ${e.statusText}`);
+      alert(Object.values(e.error));
+      return false;
     }
   }
 
@@ -85,8 +83,7 @@ export class AuthenticationService {
         return false;
       }
     } catch (e) {
-      // TODO: Make error handler
-      alert(`${e.status}, ${e.statusText}`);
+      alert(Object.values(e.error));
       return false;
     }
   }
@@ -106,7 +103,8 @@ export class AuthenticationService {
         alert('Unexpeected in changePassword'); // Should not be called
       }
     } catch (e) {
-      alert(`${e.status}, ${e.statusText}`);
+      alert(Object.values(e.error));
+      return false;
     }
   }
 

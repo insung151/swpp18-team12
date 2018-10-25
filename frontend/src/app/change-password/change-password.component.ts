@@ -34,9 +34,9 @@ export class ChangePasswordComponent implements OnInit {
   async changePassword(): Promise<void> {
     const res: boolean = await this.authenticationService.changePassword(this.old_password.value, this.new_password.value);
     if (res) {
-      this.router.navigateByUrl(this.previousUrl); // login success
+      this.router.navigateByUrl(this.previousUrl);
     } else {
-      alert('change password failed'); // TODO: login failed
+      alert('change password failed');
     }
   }
 
