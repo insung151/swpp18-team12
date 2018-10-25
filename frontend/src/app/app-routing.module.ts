@@ -9,7 +9,7 @@ import { ChangePasswordComponent } from './change-password/change-password.compo
 
 const routes: Routes = [
   { path: '', component: MainComponent },
-  { path: 'sign_in', component: SignInComponent },
+  { path: 'login', component: SignInComponent },
   { path: 'signup', component: SignUpComponent },
   { path: 'reset_password', component: ResetPasswordComponent },
   { path: 'change_password', component: ChangePasswordComponent },
