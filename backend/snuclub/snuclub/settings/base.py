@@ -38,6 +38,9 @@ INSTALLED_APPS = [
     'core',
     'club',
     'qa',
+    'user_rating',
+    'promotion_post',
+    'event_post',
 
     'corsheaders',
     'rest_framework',
