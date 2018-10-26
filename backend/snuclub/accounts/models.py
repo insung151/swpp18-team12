@@ -71,6 +71,30 @@ class UserProfile(models.Model):
     # 학과정보
     department = models.CharField(max_length=20, blank=True, null=True)
 
+    favorite_club = models.ForeignKey(
+        'club.Club',
+        on_delete=models.CASCADE,
+        related_name='users',
+        null=True,
+        blank=True
+    )
+
+    favorite_events = models.ForeignKey(
+        'event_post.EventPost',
+        on_delete=models.CASCADE,
+        related_name='users',
+        null=True,
+        blank=True
+    )
+
+    favorite_promotion = models.ForeignKey(
+        'promotion_post.PromotionPost',
+        on_delete=models.CASCADE,
+        related_name='users',
+        null=True,
+        blank=True
+    )
+
     def save(self, *args, **kwargs):
         self.full_clean()
         super(UserProfile, self).save(*args, **kwargs)
