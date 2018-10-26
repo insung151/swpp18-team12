@@ -1,6 +1,7 @@
 from django.contrib.auth.base_user import AbstractBaseUser, BaseUserManager
 from django.contrib.auth.models import PermissionsMixin
 from django.db import models
+from django.utils.functional import cached_property
 
 from core.fields import IntegerRangeField
 from core.mixins import TimestampedMixin
@@ -99,6 +100,6 @@ class UserProfile(models.Model):
         self.full_clean()
         super(UserProfile, self).save(*args, **kwargs)
 
-    @property
+    @cached_property
     def username(self):
         return self.user.username
