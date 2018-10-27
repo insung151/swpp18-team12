@@ -24,9 +24,18 @@ class PromotionPost(Article):
     join_end = models.DateTimeField(blank=True, null=True)
 
 
-
 class PromotionPostComment(Comment):
     """
     홍보 게시글에 달리는 댓글의 모델입니다.
     """
-    pass
+    author = models.ForeignKey(
+        'accounts.UserProfile',
+        on_delete=models.SET_NULL,
+        null=True,
+        related_name='promotion_post_comments'
+    )
+    promotion_post = models.ForeignKey(
+        'promotion_post.PromotionPost',
+        on_delete=models.CASCADE,
+        related_name='promotion_post_comments'
+    )

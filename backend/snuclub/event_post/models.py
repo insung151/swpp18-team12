@@ -29,4 +29,14 @@ class EventPostComment(TimestampedMixin, models.Model):
     """
     이벤트 게시글에 달리는 댓글의 모델입니다.
     """
-    pass
+    author = models.ForeignKey(
+        'accounts.UserProfile',
+        on_delete=models.SET_NULL,
+        null=True,
+        related_name='event_post_comments'
+    )
+    event_post = models.ForeignKey(
+        'event_post.EventPost',
+        on_delete=models.CASCADE,
+        related_name='event_post_comments'
+    )

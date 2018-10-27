@@ -18,15 +18,6 @@ class Article(TimestampedMixin, models.Model):
 
 
 class Comment(TimestampedMixin, models.Model):
-    author = models.ForeignKey(
-        'accounts.UserProfile',
-        on_delete=models.SET_NULL,
-        null=True
-    )
-    event_post = models.ForeignKey(
-        'event_post.EventPost',
-        on_delete=models.CASCADE
-    )
 
     content = models.TextField(blank=False)
 
