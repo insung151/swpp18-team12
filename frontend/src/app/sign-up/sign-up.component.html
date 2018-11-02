@@ -1,19 +1,17 @@
-<!--<form (ngSubmit)="signup()" method='post'>-->
 <form [formGroup]="signUpForm" [class.error]="!signUpForm.valid" (submit)="signUp()">
-
 
   <!-- Email Input -->
   <div class="col-3">
     <input class="form-control" type="text" name="email" placeholder="Email" [formControl]="signUpForm.controls['email']">
   </div>
-  <div *ngIf="email.hasError('invalidEmail')&&email.touched" class="ui error message"> Email Should be xxxxx@xxxxxx.xxx
+  <div *ngIf="email.hasError('invalidEmail')&&email.touched"> Email Should be xxxxx@xxxxxx.xxx
   </div>
 
   <!-- Username Input -->
   <div class="col-3">
     <input class="form-control" type="text" name="username" placeholder="ID" [formControl]="signUpForm.controls['username']">
   </div>
-  <div *ngIf="username.hasError('invalidUsername')&&username.touched" class="ui error message"> Username Should not be
+  <div *ngIf="username.hasError('invalidUsername')&&username.touched"> Username Should not be
     Empty
   </div>
 
@@ -21,7 +19,7 @@
   <div class="col-3">
     <input class="form-control" type="password" name="password" placeholder="Password" [formControl]="signUpForm.controls['password']">
   </div>
-  <div *ngIf="password.hasError('invalidPassword')&&password.touched" class="ui error message"> Must contain at least 8
+  <div *ngIf="password.hasError('invalidPassword')&&password.touched"> Must contain at least 8
     characters with at least one number
   </div>
 
@@ -30,7 +28,7 @@
     <input class="form-control" type="password" name="password_confirmation" placeholder="Password Confirmation"
       [formControl]="signUpForm.controls['password_confirmation']">
   </div>
-  <div *ngIf="password_confirmation.hasError('invalidPasswordConfirmation')&&password_confirmation.touched" class="ui error message">
+  <div *ngIf="password_confirmation.hasError('invalidPasswordConfirmation')&&password_confirmation.touched">
     Must match password.
   </div>
 
@@ -38,7 +36,7 @@
   <div class="col-3">
     <input class="form-control" type="text" name="year_of_admission" placeholder="Year of Admission" [formControl]="signUpForm.controls['year_of_admission']">
   </div>
-  <div *ngIf="year_of_admission.hasError('invalidYearOfAdmission')&&year_of_admission.touched" class="ui error message">
+  <div *ngIf="year_of_admission.hasError('invalidYearOfAdmission')&&year_of_admission.touched">
     Year of Admission Should not be Empty
   </div>
 
@@ -47,7 +45,7 @@
   <div class="col-3">
     <input class="form-control" type="text" name="department" placeholder="Department" [formControl]="signUpForm.controls['department']">
   </div>
-  <div *ngIf="department.hasError('invalidDepartment')&&department.touched" class="ui error message"> Department Should
+  <div *ngIf="department.hasError('invalidDepartment')&&department.touched"> Department Should
     not be Empty
   </div>
 

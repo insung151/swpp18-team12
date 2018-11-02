@@ -1,4 +1,4 @@
-<form [formGroup]="signInForm" (submit)="logIn()">
+<form [formGroup]="signInForm" [class.error]="!signInForm.valid" (submit)="logIn()">
 
   <!-- Email Input -->
   <div class="col-3">
@@ -11,7 +11,7 @@
   </div>
 
   <div class="col-3">
-    <button class="btn btn-primary" id="signin-button" type="submit">Submit!</button>
+    <button class="btn btn-primary" id="signin-button" type="submit" [disabled]="!signInForm.valid">Submit!</button>
   </div>
 </form>
 
