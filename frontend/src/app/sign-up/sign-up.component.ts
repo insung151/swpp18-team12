@@ -60,7 +60,7 @@ export class SignUpComponent implements OnInit {
       );
       if (res_signup) {
         // TODO: Add task after signed up
-        this.router.navigate(['sign_in']);
+        this.router.navigate(['login']);
       }
     } catch {
       alert('SignUp Failed');

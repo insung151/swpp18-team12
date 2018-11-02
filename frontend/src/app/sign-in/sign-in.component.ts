@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 
-import { AbstractControl, FormGroup, FormBuilder, Validators } from '@angular/forms';
+import { AbstractControl, FormGroup, FormBuilder, Validators, ReactiveFormsModule } from '@angular/forms';
 import { Router } from '@angular/router';
 
 import { AuthenticationService } from '../service/authentication.service';
@@ -15,8 +15,8 @@ export class SignInComponent implements OnInit {
   private signInForm: FormGroup;
   private previousUrl: string;
 
-  private email: AbstractControl;
-  private password: AbstractControl;
+  email: AbstractControl;
+  password: AbstractControl;
 
 
   constructor(private authenticationService: AuthenticationService,
