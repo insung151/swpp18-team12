@@ -1,9 +1,9 @@
 import { Component, OnInit } from '@angular/core';
-
 import { AbstractControl, FormGroup, FormBuilder, Validators, ReactiveFormsModule } from '@angular/forms';
 import { Router } from '@angular/router';
 
 import { AuthenticationService } from '../service/authentication.service';
+import { SigninValidator } from './signinValidator';
 
 @Component({
   selector: 'app-sign-in',
@@ -23,8 +23,10 @@ export class SignInComponent implements OnInit {
               private router: Router,
               private formBuilder: FormBuilder) {
     this.signInForm = formBuilder.group({
-      'email': ['', ],
-      'password': ['', ],
+      'email': ['', Validators.required],
+      'password': ['', Validators.required],
+    }, {
+      validator: SigninValidator.matchForm
     });
     this.email = this.signInForm.controls['email'];
     this.password = this.signInForm.controls['password'];
