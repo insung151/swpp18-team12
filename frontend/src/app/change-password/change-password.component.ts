@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 
-import { AbstractControl, FormGroup, FormBuilder, Validators } from '@angular/forms';
+import { AbstractControl, FormGroup, FormBuilder, Validators, ReactiveFormsModule } from '@angular/forms';
 import { Router } from '@angular/router';
 
 import { AuthenticationService } from '../service/authentication.service';
@@ -16,8 +16,8 @@ export class ChangePasswordComponent implements OnInit {
   private changePasswordForm: FormGroup;
   private previousUrl: string;
 
-  private old_password: AbstractControl;
-  private new_password: AbstractControl;
+  old_password: AbstractControl;
+  new_password: AbstractControl;
 
 
   constructor(private authenticationService: AuthenticationService,
