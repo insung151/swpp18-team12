@@ -75,4 +75,45 @@ class ClubDetail(TimestampedMixin, models.Model):
     history = models.TextField(blank=True)
 
     # 조회수
-    hit = models.IntegerField()
+    hits = models.IntegerField(default=0)
+
+
+class ClubRating(models.Model):
+    """
+    동아리 전체 평점을 관리하는 모델입니다
+    새로운 평가가 등록될 때마다 업데이트 됩니다(추후에 변경 가능)
+    """
+    club = models.OneToOneField(Club, models.CASCADE)
+
+    # 종합적 평가
+    overall_sum = models.IntegerField(default=0)
+
+    # 동아리가 목적에 따라 얼마나 잘 굴러가는지에 관한 레이팅입니다.
+    operation_sum = models.IntegerField(default=0)
+
+    # 동아리 시설
+    facility_sum = models.IntegerField(default=0)
+
+    # 동아리가 신입부원이 적응하기에 얼마나 좋은지에 관한 레이팅입니다.
+    newcomer_sum = models.IntegerField(default=0)
+
+    # 활동의 강제성
+    compulsory_sum = models.IntegerField(default=0)
+
+    # 동아리 모임이 얼마나 자주 있는지
+    meetfreq_sum = models.IntegerField(default=0)
+
+    # 전체적인 나이대 분포
+    age_sum = models.IntegerField(default=0)
+
+    # 친밀도, 친목을 얼마나 하는지
+    friendliness_sum = models.IntegerField(default=0)
+
+    # 술자리 빈도수
+    alcohol_sum = models.IntegerField(default=0)
+
+    def add(self, **kwargs):
+        for field in kwargs:
+            value = getattr(self, field + '_sum')
+            setattr(self, field + '_sum', value + kwargs[field])
+        self.save()
