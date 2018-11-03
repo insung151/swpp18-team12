@@ -48,3 +48,14 @@ class UserRating(TimestampedMixin, models.Model):
 
     # 유저가 하고싶은 말을 적는 코멘트
     comments = models.TextField(blank=True)
+
+    def __init__(self, *args, **kwargs):
+        super(UserRating, self).__init__(*args, **kwargs)
+        save_fields = [
+            'overall', 'operation', 'facility',
+            'newcomer', 'compulsory', 'meetfreq',
+            'age', 'friendliness', 'alcohol',
+        ]
+        for field in save_fields:
+            value = getattr(self, field)
+            setattr(self, f'__original_{field}', value)
