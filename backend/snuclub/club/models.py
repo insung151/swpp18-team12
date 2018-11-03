@@ -65,7 +65,10 @@ class ClubDetail(TimestampedMixin, models.Model):
     club = models.OneToOneField(Club, on_delete=models.CASCADE)
 
     # 가입 마감일
-    join_due_datetime = models.DateTimeField(blank=True)
+    join_due_datetime = models.DateTimeField(
+        blank=True,
+        null=True
+    )
 
     # 가입 링크
     join_link = models.URLField(blank=True)
