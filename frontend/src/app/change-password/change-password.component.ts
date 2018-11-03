@@ -1,10 +1,9 @@
 import { Component, OnInit } from '@angular/core';
-
 import { AbstractControl, FormGroup, FormBuilder, Validators, ReactiveFormsModule } from '@angular/forms';
 import { Router } from '@angular/router';
 
 import { AuthenticationService } from '../service/authentication.service';
-
+import { ChangePasswordValidator } from './changePasswordValidator';
 
 @Component({
   selector: 'app-change-password',
@@ -24,8 +23,10 @@ export class ChangePasswordComponent implements OnInit {
               private router: Router,
               private formBuilder: FormBuilder) {
     this.changePasswordForm = formBuilder.group({
-      'old_password': ['', ],
-      'new_password': ['', ],
+      'old_password': ['', Validators.required],
+      'new_password': ['', Validators.required],
+    }, {
+      validator: ChangePasswordValidator.matchForm
     });
     this.old_password = this.changePasswordForm.controls['old_password'];
     this.new_password = this.changePasswordForm.controls['new_password'];
