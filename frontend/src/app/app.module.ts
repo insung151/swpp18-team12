@@ -7,6 +7,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 // My Module
 import { AppRoutingModule } from './app-routing.module';
+import { AuthGuard } from './auth.guard';
 
 // Services
 import { AuthenticationService } from './service/authentication.service';
@@ -38,7 +39,8 @@ import { HeaderComponent } from './header/header.component';
     ReactiveFormsModule,
   ],
   providers: [
-    AuthenticationService
+    AuthenticationService,
+    AuthGuard,
   ],
   bootstrap: [AppComponent]
 })
