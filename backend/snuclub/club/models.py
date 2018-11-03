@@ -12,7 +12,6 @@ class Tag(models.Model):
     """
     name = models.CharField(
         max_length=10,
-        unique=True,
         db_index=True
     )
 
