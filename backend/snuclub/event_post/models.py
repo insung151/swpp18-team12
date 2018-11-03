@@ -3,7 +3,7 @@ from django.db import models
 from club.models import Club
 from accounts.models import UserProfile
 from core.mixins import TimestampedMixin
-from core.models import Article
+from core.models import Article, Comment
 
 
 class EventPost(Article):
@@ -25,7 +25,7 @@ class EventPost(Article):
     event_end = models.DateTimeField(blank=True, null=True)
 
 
-class EventPostComment(TimestampedMixin, models.Model):
+class EventPostComment(Comment):
     """
     이벤트 게시글에 달리는 댓글의 모델입니다.
     """
