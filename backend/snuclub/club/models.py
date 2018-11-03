@@ -34,7 +34,8 @@ class Club(TimestampedMixin, models.Model):
     # 동아리 관련 게시글을 쓸 수 있는 스태프
     staff = models.ManyToManyField(
         UserProfile,
-        related_name='staffs'
+        related_name='staffs',
+        blank=True
     )
 
     activity_type = models.IntegerField(
@@ -50,7 +51,11 @@ class Club(TimestampedMixin, models.Model):
 
     category = models.IntegerField(choices=CATEGORIES)
     subcategory = models.IntegerField(choices=SUBCATEGORIES)
-    tags = models.ManyToManyField(Tag, related_name='clubs')
+    tags = models.ManyToManyField(
+        Tag,
+        related_name='clubs',
+        blank=True
+    )
 
 
 class ClubDetail(TimestampedMixin, models.Model):
