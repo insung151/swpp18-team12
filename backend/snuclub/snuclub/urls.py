@@ -24,7 +24,10 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('api/accounts/', include('accounts.urls'), name='accounts'),
     path('api/club/', include('club.urls'), name='club'),
+<<<<<<< HEAD
     path('api/rating/', include('club.user_rating.urls'), name='user_rating'),
+=======
+>>>>>>> 7a95522... Add club urls
 ]
 
 if hasattr(settings, 'ENV_SETTINGS_MODE') and settings.ENV_SETTINGS_MODE == 'dev':
