@@ -13,10 +13,10 @@ const routes: Routes = [
   { path: '', component: MainComponent },
   { path: 'login', component: SignInComponent },
   { path: 'signup', component: SignUpComponent },
-  { path: 'account', canActivate: [AuthGuard],
+  { path: 'account', 
     children: [
-      { path: 'change_password', component: ChangePasswordComponent },
-      { path: 'reset_password', component: ResetPasswordComponent },
+      { path: 'change_password', component: ChangePasswordComponent, canActivate: [AuthGuard], },
+      { path: 'forgot_password', component: ResetPasswordComponent },
     ]
   },
   { path: '**', component: MainComponent },

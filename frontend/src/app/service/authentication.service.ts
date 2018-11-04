@@ -108,6 +108,23 @@ export class AuthenticationService {
     }
   }
 
+  async forgotPassword(email: string): Promise<boolean> {
+    const url = 'api/accounts/forgot_password/';
+    try {
+      const res: any = await this.http.post(url,
+        {'email': email },
+        { headers: getCSRFHeaders(), withCredentials: true, observe: 'response'})
+        .toPromise();
+
+        if (res.status === 200) {
+          return true;
+        } else {
+          alert('Unexpeected in changePassword'); // Should not be called
+        }
+    } catch (e) {
+      return false;
+    }
+  }
 
   constructor(private http: HttpClient) { }
 }
