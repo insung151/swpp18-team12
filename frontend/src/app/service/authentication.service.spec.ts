@@ -1,118 +1,118 @@
-import { Injectable } from '@angular/core';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { getCSRFHeaders } from '../../util/headers';
+import { TestBed, inject, async, fakeAsync, tick } from '@angular/core/testing';
 
-@Injectable()
-export class AuthenticationService {
+import { HttpClient, HttpErrorResponse, HttpResponse } from '@angular/common/http';
+import { HttpClientTestingModule, HttpTestingController } from '@angular/common/http/testing';
 
-  private headers: HttpHeaders = new HttpHeaders({ 'Content-Type': 'application/json' });
+import { AuthenticationService } from './authentication.service';
+import { User } from '../model/user';
 
-  async logIn(email: string, password: string): Promise<boolean> {
-    const url = 'api/accounts/login/';
-    try {
-      const res: any = await this.http.post(url,
-        JSON.stringify({'email': email, 'password': password }),
-        { headers: getCSRFHeaders(), withCredentials: true, observe: 'response'})
-      .toPromise();
-      if (res.status === 200) { // Successful login
-        let token = '';
-        if (document.cookie) {
-          token = document.cookie.split('csrftoken=')[ 1 ].split(';')[ 0 ];
-        }
-        localStorage.setItem('currentUser', JSON.stringify({ 'token' : token, 'username': res.body['username'] }));
-        return true;
-      } else {
-        alert('Unexpected in logIn'); // Should not be called
-        return false;
-      }
-    } catch (e) {
-      alert(Object.values(e.error));
-      return false;
-    }
-  }
+const mockUsers = [
+  {
+    id: 1,
+    email: 'swpp@snu.ac.kr',
+    password: 'iluvswpp1',
+    username: 'swpp',
+    year_of_admission: 2018,
+    department: 'cse',
+  },
+  {
+    id: 2,
+    email: 'yj8902@naver.com',
+    password: 'testpassword123',
+    username: 'snumath',
+    year_of_admission: 2016,
+    department: 'math',
+  },
+] as User[];
 
-  loggedIn(): boolean {
-    if (localStorage.getItem('currentUser')) {
-      return true;
-    }
-    return false;
-  }
+const mockUser = {
+  id: 1,
+  email: 'swpp@snu.ac.kr',
+  password: 'iluvswpp1',
+  username: 'swpp',
+  year_of_admission: 2018,
+  department: 'cse',
+} as User;
 
-  getUserName(): string {
-    const user = localStorage.getItem('currentUser');
-    if (user) {
-      return JSON.parse(user)['username'];
-    }
-    return '';
-  }
+describe('AuthenticationService', () => {
 
-  async logOut(): Promise<boolean> {
-    const url = 'api/accounts/logout/';
-    try {
-      const res = await this.http.get(url,
-        { headers: getCSRFHeaders(), withCredentials: true, observe: 'response'})
-        .toPromise();
-      localStorage.removeItem('currentUser');
-      return true;
-    } catch {
-      // TODO: Error Handler
-      localStorage.removeItem('currentUser');
-      return true;
-    }
-  }
+  let httpClient: HttpClient;
+  let httpMock: HttpTestingController;
+  let authenticationService: AuthenticationService;
+  const apiUrl = 'api/accounts';
 
-  async signUp(
-    email: string,
-    password: string,
-    password_confirmation: string,
-    username: string,
-    year_of_admission: number,
-    department: string): Promise<boolean> {
-    const url = 'api/accounts/signup/';
-    try {
-      const res: any = await this.http.post(url,
-        JSON.stringify({ 'email': email,
-          'username': username,
-          'password': password,
-          'password_confirmation': password_confirmation,
-          'year_of_admission': year_of_admission,
-          'department': department}),
-        { headers: getCSRFHeaders(), withCredentials: true, observe: 'response' })
-        .toPromise();
-      if (res.status === 201) {
-        return true; // successfully logined
-      } else {
-        alert('Unexpected in signUp'); // should not be called
-        return false;
-      }
-    } catch (e) {
-      alert(Object.values(e.error));
-      return false;
-    }
-  }
+  beforeEach(() => {
+    TestBed.configureTestingModule({
+      imports: [ HttpClientTestingModule ],
+      providers: [ AuthenticationService ],
+    });
+    httpClient = TestBed.get(HttpClient);
+    httpMock = TestBed.get(HttpTestingController);
+    authenticationService = TestBed.get(AuthenticationService);
+  });
 
 
-  async changePassword(old_password: string, new_password: string): Promise<boolean> {
-    const url = 'api/accounts/change_password/';
-    try {
-      const res: any = await this.http.put(url,
-        {'old_password': old_password, 'new_password': new_password },
-        { headers: getCSRFHeaders(), withCredentials: true, observe: 'response'})
-        .toPromise();
-        // Successfully changed
-      if (res.status === 200) {
-        return true;
-      } else {
-        alert('Unexpeected in changePassword'); // Should not be called
-      }
-    } catch (e) {
-      alert(Object.values(e.error));
-      return false;
-    }
-  }
 
+  it('should be created', inject([AuthenticationService], (service: AuthenticationService) => {
+    expect(service).toBeTruthy();
+  }));
 
-  constructor(private http: HttpClient) { }
-}
+  it('should have no httpRequest at the beginning', async() => {
+    httpMock.verify();
+  });
 
+  it('login(email, password)', async () => {
+    authenticationService.logIn(mockUser['email'], mockUser['password']).then( res => {
+      alert(localStorage.getItem['currentUser']);
+      expect(res).toEqual(true);
+    });
+
+    const req = httpMock.expectOne(`${apiUrl}/login/`);
+    expect(req.request.method).toEqual('POST');
+    req.flush({});
+  });
+
+  it('logOut()', async () => {
+    authenticationService.logOut().then( res => {
+      expect(res).toEqual(true);
+    });
+
+    const req = httpMock.expectOne(`${apiUrl}/logout/`);
+    expect(req.request.method).toEqual('GET');
+    req.flush({});
+  });
+
+  it('changePassword(old_password, new_password)', async () => {
+    authenticationService.changePassword(mockUser['password'], 'iluvswpp123').then( res => {
+      expect(res).toEqual(true);
+    });
+
+    const req = httpMock.expectOne(`${apiUrl}/change_password/`);
+    expect(req.request.method).toEqual('PUT');
+    req.flush({});
+  });
+
+  it('signUp(too many...)', async () => {
+    authenticationService.signUp(
+      'test@snu.ac.kr',
+      'newidpw1',
+      'newidpw1',
+      'newidpw1',
+      2016,
+      'newidpw1'
+    ).then( res => {
+      console.log(res);
+      expect(res).not.toBeTruthy();
+    });
+
+    const req = httpMock.expectOne(`${apiUrl}/signup/`);
+    expect(req.request.method).toEqual('POST');
+    req.flush({});
+  });
+
+  afterEach(() => {
+    httpMock.verify();
+  });
+
+});
 
