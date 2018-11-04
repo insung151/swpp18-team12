@@ -124,7 +124,7 @@ class PasswordForgetTestCase(APITestCase):
         response = self.client.post(url, data=email)
         token = password_forgot_token.make_token(self.user.username)
         vurl = '/api/accounts/forgot_password/username/{}/'.format(token)
-        response = self.client.post(vurl, new_password)
+        response = self.client.put(vurl, new_password)
         self.assertEqual(response.status_code, status.HTTP_200_OK)
         is_correct = self.client.login(
             username='test2@testcase.com',
