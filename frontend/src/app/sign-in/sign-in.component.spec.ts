@@ -5,6 +5,8 @@ import { AuthenticationService } from '../service/authentication.service';
 import { AuthenticationServiceSpy } from '../service/authentication.service.spy';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { RouterTestingModule } from '@angular/router/testing';
+import { AlertService } from '../service/alert.service';
+import { AlertServiceSpy } from '../service/alert.service.spy';
 
 @Component({
   template: ``
@@ -28,7 +30,10 @@ describe('SignInComponent', () => {
         FormsModule,
         ReactiveFormsModule,
       ],
-      providers: [ { provide: AuthenticationService, useClass: AuthenticationServiceSpy } ]
+      providers: [
+        { provide: AuthenticationService, useClass: AuthenticationServiceSpy },
+        { provide: AlertService, useClass: AlertServiceSpy },
+      ]
     })
     .compileComponents();
   }));
