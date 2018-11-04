@@ -5,7 +5,7 @@ from django.contrib.auth import get_user_model
 
 from accounts.models import UserProfile
 
-from .tokens import account_activation_token
+from .tokens import account_activation_token, password_forgot_token
 
 User = get_user_model()
 
@@ -33,15 +33,13 @@ class AccountsLoginTestCase(APITestCase):
         self.assertIsNotNone(User.objects.get(email='test@testcase.com'))
         self.assertIsNotNone(UserProfile.objects.get(user__email='test@testcase.com'))
 
-        #Email verification test
+        # Email verification test
         token = account_activation_token.make_token("google")
         vurl = '/api/accounts/activate/google/{}/'.format(token)
         response2 = client.get(vurl)
         self.assertEqual(response2.status_code, status.HTTP_200_OK)
         user = User.objects.get(email='test@testcase.com')
         self.assertEqual(user.is_active, True)
-
-
 
     def test_login_and_logout_api(self):
         # create_user
@@ -70,7 +68,6 @@ class AccountsLoginTestCase(APITestCase):
         # already logged out
         response = self.client.get(url)
         assert response.status_code == 403
-
 
     def test_change_password(self):
 
@@ -102,3 +99,38 @@ class AccountsLoginTestCase(APITestCase):
             username='test12@testcase.com',
             password=new_password)
         self.assertEqual(is_correct, True)
+
+
+class PasswordForgetTestCase(APITestCase):
+    def setUp(self):
+        self.client = APIClient()
+        # create_user
+        self.user = User.objects.create_user(
+            email='test2@testcase.com',
+            password='qwer1234',
+            username='username'
+        )
+        self.user.is_active = True
+        self.user.save()
+
+    def test_forget_password(self):
+        url = '/api/accounts/forgot_password/'
+        email = {
+            'email':'test2@testcase.com'
+        }
+        new_password = {
+            'new_password':'asdf4321'
+        }
+        response = self.client.post(url, data=email)
+        token = password_forgot_token.make_token(self.user.username)
+        vurl = '/api/accounts/forgot_password/username/{}/'.format(token)
+        response = self.client.put(vurl, new_password)
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
+        is_correct = self.client.login(
+            username='test2@testcase.com',
+            password='asdf4321')
+        self.assertEqual(is_correct, True)
+        is_false = self.client.login(
+            username='test2@testcase.com',
+            password='qwer1234')
+        self.assertEqual(is_false, False)
