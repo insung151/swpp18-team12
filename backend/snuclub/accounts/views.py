@@ -115,7 +115,7 @@ class ResetPasswordAPIView(UpdateAPIView):
 
     def post(self, request, *args, **kwargs):
         user = User.objects.get(username=kwargs['username'])
-        if password_forgot_token.check_token(user.username, kwargs['token'])
+        if password_forgot_token.check_token(user.username, kwargs['token']):
             serializer = self.serializer_class(data=request.data)
             serializer.is_valid(raise_exception=True)
             user.set_password(serializer.validated_data.get('new_password'))
