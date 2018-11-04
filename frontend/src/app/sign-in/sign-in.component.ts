@@ -4,6 +4,7 @@ import { Router } from '@angular/router';
 
 import { AuthenticationService } from '../service/authentication.service';
 import { SigninValidator } from './signinValidator';
+import { AlertService } from '../service/alert.service';
 
 @Component({
   selector: 'app-sign-in',
@@ -20,6 +21,7 @@ export class SignInComponent implements OnInit {
 
 
   constructor(private authenticationService: AuthenticationService,
+              private alertService: AlertService,
               private router: Router,
               private formBuilder: FormBuilder) {
     this.signInForm = formBuilder.group({
@@ -37,7 +39,7 @@ export class SignInComponent implements OnInit {
     if (res) {
       this.router.navigateByUrl(this.previousUrl); // login success
     } else {
-      alert('login failed'); // TODO: login failed
+      this.alertService.error('Login failed', false);
     }
   }
 

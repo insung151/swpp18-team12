@@ -3,6 +3,7 @@ import { AbstractControl, FormGroup, FormBuilder, Validators } from '@angular/fo
 import { Router } from '@angular/router';
 
 import { AuthenticationService } from '../service/authentication.service';
+import { AlertService } from '../service/alert.service';
 
 import { SignupValidator } from './signupValidator';
 
@@ -21,7 +22,9 @@ export class SignUpComponent implements OnInit {
   year_of_admission: AbstractControl;
   department: AbstractControl;
 
-  constructor(private authenticationService: AuthenticationService,
+  constructor(
+    private authenticationService: AuthenticationService,
+    private alertService: AlertService,
     private router: Router,
     private formBuilder: FormBuilder
   ) {
@@ -60,10 +63,13 @@ export class SignUpComponent implements OnInit {
       );
       if (res_signup) {
         // TODO: Add task after signed up
+        this.alertService.success('Registration successful. Please authentify your email.', true);
         this.router.navigate(['login']);
+      } else {
+        this.alertService.error('Registration failed', false);
       }
     } catch {
-      alert('SignUp Failed');
+      this.alertService.error('Unexpected Error', false);
     }
   }
 

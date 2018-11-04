@@ -20,6 +20,8 @@ import { SignUpComponent } from './sign-up/sign-up.component';
 import { ResetPasswordComponent } from './reset-password/reset-password.component';
 import { ChangePasswordComponent } from './change-password/change-password.component';
 import { HeaderComponent } from './header/header.component';
+import { AlertComponent } from './alert/alert.component';
+import { AlertService } from './service/alert.service';
 
 @NgModule({
   declarations: [
@@ -30,6 +32,7 @@ import { HeaderComponent } from './header/header.component';
     ResetPasswordComponent,
     ChangePasswordComponent,
     HeaderComponent,
+    AlertComponent,
   ],
   imports: [
     BrowserModule,
@@ -40,6 +43,7 @@ import { HeaderComponent } from './header/header.component';
   ],
   providers: [
     AuthenticationService,
+    AlertService,
     AuthGuard,
   ],
   bootstrap: [AppComponent]
