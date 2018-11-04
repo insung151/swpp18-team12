@@ -4,7 +4,7 @@ from rest_framework.generics import UpdateAPIView, GenericAPIView
 from rest_framework.permissions import AllowAny, IsAuthenticated
 from rest_framework.response import Response
 from rest_framework.views import APIView
-from .tokens import account_activation_token
+from .tokens import account_activation_token, password_forgot_token
 from django.contrib.sites.shortcuts import get_current_site
 from .utils import send_verification_mail, send_password_reset_mail
 
@@ -115,8 +115,11 @@ class ResetPasswordAPIView(UpdateAPIView):
 
     def post(self, request, *args, **kwargs):
         user = User.objects.get(username=kwargs['username'])
-        serializer = self.serializer_class(data=request.data)
-        serializer.is_valid(raise_exception=True)
-        user.set_password(serializer.validated_data.get('new_password'))
-        user.save()
-        return Response({'message': "Success"}, status=status.HTTP_200_OK)
+        if password_forgot_token.check_token(user.username, kwargs['token'])
+            serializer = self.serializer_class(data=request.data)
+            serializer.is_valid(raise_exception=True)
+            user.set_password(serializer.validated_data.get('new_password'))
+            user.save()
+            return Response({'message': "Success"}, status=status.HTTP_200_OK)
+        else:
+            return Response({'message': "Invalid token!"}, status=status.HTTP_403_FORBIDDEN)
