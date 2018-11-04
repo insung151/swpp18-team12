@@ -72,3 +72,11 @@ class ChangePasswordSerializer(serializers.Serializer):
         if (value == self.initial_data['old_password']):
             raise serializers.ValidationError("New password must be different with old")
         return value
+
+
+class ForgotPasswordSerializer(serializers.Serializer):
+    email = serializers.EmailField(required=True)
+
+
+class ResetPasswordSerializer(serializers.Serializer):
+    new_password = PasswordField()
