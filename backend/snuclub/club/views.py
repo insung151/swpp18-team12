@@ -46,17 +46,34 @@ class ClubDetailApiView(APIView):
         serializer.save(club=Club.objects.get(id=self.kwargs['club_id']))
         return Response(serializer.data, status=status.HTTP_201_CREATED)
 
+    def get(self, request, *args, **kwargs):
+        club_detail = Club.objects.get(id=self.kwargs['club_id']).clubdetail
+        serializer = self.serializer_class(club_detail)
+        return Response(serializer.data, status=status.HTTP_200_OK)
 
-class ClubShortApiView(UpdateAPIView):
+    def put(self, request, *args, **kwargs):
+        club_detail = Club.objects.get(id=self.kwargs['club_id']).clubdetail
+        serializer = self.serializer_class(club_detail, data=request.data)
+        serializer.is_valid(raise_exception=True)
+        serializer.save()
+        return Response(serializer.data, status=status.HTTP_200_OK)
+
+
+class ClubShortApiView(APIView):
     permission_classes = (IsAuthenticated,)
     serializer_class = ClubSerializer
     model = Club
 
-    def update(self, request, *args, **kwargs):
+    def put(self, request, *args, **kwargs):
         club = Club.objects.get(id=self.kwargs['club_id'])
         serializer = self.serializer_class(club, data=request.data)
         serializer.is_valid(raise_exception=True)
         serializer.save()
+        return Response(serializer.data, status=status.HTTP_200_OK)
+
+    def get(self, request, *args, **kwargs):
+        club = Club.objects.get(id=self.kwargs['club_id'])
+        serializer = self.serializer_class(club)
         return Response(serializer.data, status=status.HTTP_200_OK)
 
 

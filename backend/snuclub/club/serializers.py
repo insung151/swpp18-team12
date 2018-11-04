@@ -11,9 +11,7 @@ class TagSerializer(serializers.ModelSerializer):
         fields = ['name']
 
 
-class ClubSerializer(serializers.Serializer):
-    tags = TagSerializer(many=True, default=[])
-
+class ClubSerializer(serializers.ModelSerializer):
     class Meta:
         model = Club
         fields = ['name',
@@ -24,6 +22,7 @@ class ClubSerializer(serializers.Serializer):
                   'subcategory',
                   'tags',
                 ]
+    tags = TagSerializer(many=True, default=[])
 
     def validate_name(self, value):
         if Club.objects.filter(name=value).exists():
@@ -64,6 +63,15 @@ class ClubDetailSerializer(serializers.ModelSerializer):
                   'site_link',
                   'long_description',
                   'history']
+
+    def update(self, instance, validated_data):
+        instance.join_due_datetime = validated_data.get('join_due_datetime', instance.join_due_datetime)
+        instance.join_link = validated_data('join_link', instance.join_link)
+        instance.site_link = validated_data('site_link', instance.site_link)
+        instance.long_description = validated_data('long_description', instance.long_description)
+        instance.history = validated_data('history', instance.history)
+        instance.save()
+        return instance
 
 
 class ChangeProfileImageSerializer(serializers.Serializer):
