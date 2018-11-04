@@ -25,7 +25,7 @@ export class AuthenticationService {
         return false;
       }
     } catch (e) {
-      alert(Object.values(e.error));
+      // alert(Object.values(e.error));
       return false;
     }
   }
@@ -83,7 +83,7 @@ export class AuthenticationService {
         return false;
       }
     } catch (e) {
-      alert(Object.values(e.error));
+      // alert(Object.values(e.error));
       return false;
     }
   }
@@ -103,7 +103,7 @@ export class AuthenticationService {
         alert('Unexpeected in changePassword'); // Should not be called
       }
     } catch (e) {
-      alert(Object.values(e.error));
+      // alert(Object.values(e.error));
       return false;
     }
   }

@@ -3,6 +3,8 @@ import { AbstractControl, FormGroup, FormBuilder, Validators, ReactiveFormsModul
 import { Router } from '@angular/router';
 
 import { AuthenticationService } from '../service/authentication.service';
+import { AlertService } from '../service/alert.service';
+
 import { ChangePasswordValidator } from './changePasswordValidator';
 
 @Component({
@@ -20,6 +22,7 @@ export class ChangePasswordComponent implements OnInit {
 
 
   constructor(private authenticationService: AuthenticationService,
+              private alertService: AlertService,
               private router: Router,
               private formBuilder: FormBuilder) {
     this.changePasswordForm = formBuilder.group({
@@ -36,8 +39,9 @@ export class ChangePasswordComponent implements OnInit {
     const res: boolean = await this.authenticationService.changePassword(this.old_password.value, this.new_password.value);
     if (res) {
       this.router.navigateByUrl(this.previousUrl);
+      this.alertService.success('Password changed', false);
     } else {
-      alert('change password failed');
+      this.alertService.error('Password change failed', false);
     }
   }
 
