@@ -125,3 +125,15 @@ class ClubRating(models.Model):
             value = getattr(self, field + '_sum')
             setattr(self, field + '_sum', value + kwargs[field])
         self.save()
+
+
+class Widget(models.Model):
+    club_detail = models.ForeignKey(
+        ClubDetail,
+        models.CASCADE,
+        blank=True,
+        null=True,
+        related_name='widgets'
+    )
+    key = models.CharField(max_length=20)
+    value = models.CharField(max_length=100)
