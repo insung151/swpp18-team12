@@ -20,6 +20,14 @@ export class AuthenticationServiceSpy {
       }
   });
 
+  forgotPassword = jasmine.createSpy('forgotPassword').and.callFake((email: string, ) => {
+      if (email) {
+        return Promise.resolve(true);
+      } else {
+        return Promise.resolve(false);
+      }
+    });
+
   signUp = jasmine.createSpy('signUp').and.callFake((
     email: string,
     password: string,

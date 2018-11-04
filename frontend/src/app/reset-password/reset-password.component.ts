@@ -17,8 +17,7 @@ export class ResetPasswordComponent implements OnInit {
   private resetPasswordForm: FormGroup;
   private previousUrl: string;
 
-  private email: AbstractControl;
-  private new_password: AbstractControl;
+  email: AbstractControl;
 
 
   constructor(private authenticationService: AuthenticationService,
