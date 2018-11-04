@@ -109,11 +109,11 @@ class ForgotPasswordAPIView(APIView):
             return Response({'message':"User does not exist!"}, status=status.HTTP_404_NOT_FOUND)
 
 
-class ResetPasswordAPIView(UpdateAPIView):
+class ResetPasswordAPIView(APIView):
     permission_classes = (AllowAny,)
     serializer_class = ResetPasswordSerializer
 
-    def post(self, request, *args, **kwargs):
+    def put(self, request, *args, **kwargs):
         user = User.objects.get(username=kwargs['username'])
         if password_forgot_token.check_token(user.username, kwargs['token']):
             serializer = self.serializer_class(data=request.data)
