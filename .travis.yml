@@ -27,7 +27,7 @@ matrix:
       - cd snuclub
 
     script:
-      - coverage run --source="./accounts" manage.py test --settings=snuclub.settings.aws
+      coverage run --source='./' --omit='*migrations*,*settings*,*test*,*wsgi*,manage.py' manage.py test --settings=snuclub.settings.aws
 
     after_script:
       - coveralls
