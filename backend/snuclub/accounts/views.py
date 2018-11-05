@@ -1,12 +1,16 @@
 from django.contrib.auth import authenticate, login, logout
 from rest_framework import status
-from rest_framework.generics import UpdateAPIView
+from rest_framework.generics import UpdateAPIView, GenericAPIView
 from rest_framework.permissions import AllowAny, IsAuthenticated
 from rest_framework.response import Response
 from rest_framework.views import APIView
+from .tokens import account_activation_token, password_forgot_token
+from django.contrib.sites.shortcuts import get_current_site
+from .utils import send_verification_mail, send_password_reset_mail
+
 
 from accounts.models import User
-from accounts.serializers import LoginSerializer, SignUpSerializer, ChangePasswordSerializer
+from accounts.serializers import LoginSerializer, SignUpSerializer, ChangePasswordSerializer, ForgotPasswordSerializer, ResetPasswordSerializer
 
 
 class LoginApiView(APIView):
@@ -47,6 +51,8 @@ class SignUpApiView(APIView):
         serializer = self.serializer_class(data=request.data)
         serializer.is_valid(raise_exception=True)
         serializer.save()
+        send_verification_mail(serializer.data['username'],serializer.data['email'],get_current_site(request))
+
         return Response(serializer.data, status=status.HTTP_201_CREATED)
 
 
@@ -68,3 +74,52 @@ class ChangePasswordAPIView(UpdateAPIView):
         user.set_password(serializer.validated_data.get("new_password"))
         user.save()
         return Response({'message': "Success"}, status=status.HTTP_200_OK)
+
+
+class ActivateUserAPIView(GenericAPIView):
+    permission_classes = (AllowAny,)
+    queryset = User
+    lookup_field = 'username'
+    lookup_url_kwarg = 'username'
+
+    def get(self, request, username, token):
+        user = self.get_object()
+        if account_activation_token.check_token(username, token):
+            user.is_active = True
+            user.save()
+            return Response({'message':'Thank you for your email confirmation. Now you can login your account.'},
+                            status=status.HTTP_200_OK)
+        return Response({'message':'Activation link is invalid! username = {}'.format(username)},
+                            status=status.HTTP_403_FORBIDDEN)
+
+
+class ForgotPasswordAPIView(APIView):
+    permission_classes = (AllowAny,)
+    serializer_class = ForgotPasswordSerializer
+
+    def post(self, request, *args, **kwargs):
+        serializer = self.serializer_class(data=request.data)
+        serializer.is_valid(raise_exception=True)
+        email = serializer.validated_data['email']
+        if User.objects.filter(email=email).exists():
+            user = User.objects.get(email=email)
+            send_password_reset_mail(user.username, user.email, get_current_site(request))
+            return Response(serializer.data, status=status.HTTP_200_OK)
+        else:
+            return Response({'message':"User does not exist!"}, status=status.HTTP_404_NOT_FOUND)
+
+
+class ResetPasswordAPIView(APIView):
+    permission_classes = (AllowAny,)
+    serializer_class = ResetPasswordSerializer
+
+    def put(self, request, *args, **kwargs):
+        user = User.objects.get(username=kwargs['username'])
+        if password_forgot_token.check_token(user.username, kwargs['token']):
+            serializer = self.serializer_class(data=request.data)
+            serializer.is_valid(raise_exception=True)
+            user.set_password(serializer.validated_data.get('new_password'))
+            user.save()
+            return Response({'message': "Success"}, status=status.HTTP_200_OK)
+        else:
+            return Response({'message': "Invalid token!"}, status=status.HTTP_403_FORBIDDEN)
