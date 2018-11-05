@@ -11,11 +11,13 @@ class UserRating(TimestampedMixin, models.Model):
     """
     user = models.ForeignKey(
         UserProfile,
+        related_name='user_ratings',
         on_delete=models.SET_NULL,
         null=True
     )
     club = models.ForeignKey(
         Club,
+        related_name='user_ratings',
         on_delete=models.CASCADE
     )
 

@@ -30,8 +30,8 @@ class Migration(migrations.Migration):
                 ('friendliness', models.IntegerField()),
                 ('alcohol', models.IntegerField()),
                 ('comments', models.TextField(blank=True)),
-                ('club', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='club.Club')),
-                ('user', models.ForeignKey(null=True, on_delete=django.db.models.deletion.SET_NULL, to='accounts.UserProfile')),
+                ('club', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, related_name='user_ratings', to='club.Club')),
+                ('user', models.ForeignKey(null=True, on_delete=django.db.models.deletion.SET_NULL, related_name='user_ratings', to='accounts.UserProfile')),
             ],
             options={
                 'ordering': ['-created_at', '-updated_at'],
