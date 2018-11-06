@@ -23,6 +23,8 @@ schema_view = get_swagger_view(title='SNUCLUB API')
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('api/accounts/', include('accounts.urls'), name='accounts'),
+    path('api/club/', include('club.urls'), name='club'),
+    path('api/rating/', include('club.user_rating.urls'), name='user_rating'),
 ]
 
 if hasattr(settings, 'ENV_SETTINGS_MODE') and settings.ENV_SETTINGS_MODE == 'dev':
