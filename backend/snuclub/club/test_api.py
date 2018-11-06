@@ -1,9 +1,15 @@
+from django.contrib.auth.models import AnonymousUser
 from rest_framework.test import APITestCase, APIClient
 
 from accounts.models import User, UserProfile
 from club.models import Club
 from club.user_rating.models import UserRating
 from club.user_rating.serializers import UserRatingListSerializer
+
+
+class MockRequest:
+    def __init__(self, user):
+        self.user = user
 
 
 def user_rating_generator(user_profile, club):
@@ -40,6 +46,12 @@ class ClubTestCase(APITestCase):
 
     def test_user_rating_list(self):
         resp = self.client.get(f'/api/club/{self.club.id}/rating/')
-        serializer = UserRatingListSerializer(self.club.user_ratings, many=True)
+        serializer = UserRatingListSerializer(
+            self.club.user_ratings,
+            many=True,
+            context={
+                'request': MockRequest(AnonymousUser)
+            }
+        )
         self.assertEqual(resp.status_code, 200)
         self.assertEqual(resp.data, serializer.data)

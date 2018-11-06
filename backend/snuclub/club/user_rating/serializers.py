@@ -27,14 +27,28 @@ class UserRatingSerializer(serializers.ModelSerializer):
     age = NonScoringField()
     friendliness = NonScoringField()
     alcohol = NonScoringField()
+    is_owner = serializers.SerializerMethodField()
 
     class Meta:
         model = UserRating
         fields = '__all__'
 
+    def get_is_owner(self, obj):
+        request = self.context.get('request')
+        return request.user and \
+            request.user.is_authenticated and \
+            obj.user.user == request.user
+
 
 class UserRatingListSerializer(serializers.ModelSerializer):
+    is_owner = serializers.SerializerMethodField()
 
     class Meta:
         model = UserRating
-        fields = ('club', 'comments',)
+        fields = ('club', 'comments', 'updated_at', 'is_owner')
+
+    def get_is_owner(self, obj):
+        request = self.context.get('request')
+        return request.user and \
+            request.user.is_authenticated and \
+            obj.user.user == request.user
