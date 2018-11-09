@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { Club } from '../../../model/club';
+import { ClubDetail } from '../../../model/club-detail';
 
 @Component({
   selector: 'app-detail',
@@ -8,7 +8,7 @@ import { Club } from '../../../model/club';
 })
 export class DetailComponent implements OnInit {
 
-  private items: Club;
+  private items: ClubDetail;
 
   constructor() { }
 

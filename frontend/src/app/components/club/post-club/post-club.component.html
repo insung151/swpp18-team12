@@ -1,0 +1,75 @@
+<form>
+  <div class="form-group">
+    <label for="clubname">Club Name</label>
+    <input type="text" class="form-control" id="clubname" aria-describedby="emailHelp" placeholder="Enter Club name">
+  </div>
+
+  <div class="form-group">
+    <label for="activity">Activity type</label>
+    <select class="form-control" id="activity">
+      <option value="1">학술</option>
+      <option value="2">취미</option>
+      <option value="3">예술</option>
+      <option value="4">무예</option>
+      <option value="5">종교</option>
+      <option value="6">스포츠</option>
+      <option value="7">봉사</option>
+      <option value="8">인권</option>
+    </select>
+  </div>
+
+  <div class="form-group">
+    <label for="exampleTextarea">Short description</label>
+    <textarea class="form-control" id="exampleTextarea" rows="3"></textarea>
+  </div>
+
+  <div class="form-group">
+    <label for="profile">File input</label>
+    <br>
+    <div class="btn btn-primary btn-file"> Browse
+      <input type="file" class="form-control-file" (change)="onSelectFile($event)" id="profile"
+        aria-describedby="fileHelp">
+      <img [src]="url" height="100"> <br />
+    </div>
+    <small id="fileHelp" class="form-text text-muted">동아리를 한눈에 나타낼 수 있는 사진을 골라주세요!</small>
+  </div>
+
+
+  <div class="form-group">
+    <label for="category">Category</label>
+    <select class="form-control" id="category">
+      <option value="1">중앙동아리</option>
+      <option value="2">인문대학</option>
+      <option value="3">사회과학대학</option>
+      <option value="4">자연과학대학</option>
+      <option value="5">간호대학</option>
+      <option value="6">경영대학</option>
+      <option value="7">공과대학</option>
+      <option value="8">농업생명과학대학</option>
+      <option value="9">미술대학</option>
+      <option value="10">사범대학</option>
+      <option value="11">생활과학대학</option>
+      <option value="12">수의과대학</option>
+      <option value="13">약학대학</option>
+      <option value="14">음악대학</option>
+      <option value="15">의과대학</option>
+      <option value="16">자유전공학부</option>
+      <option value="17">치의학대학원</option>
+    </select>
+  </div>
+
+  <div class="form-group">
+    <label for="subcategory">Subcategory</label>
+    <select class="form-control" id="subcategory">
+    </select>
+  </div>
+
+
+  <div class="form-check">
+    <label class="form-check-label">
+      <input type="checkbox" class="form-check-input">
+      이용 약관 동의
+    </label>
+  </div>
+  <button type="submit" class="btn btn-primary">Submit</button>
+</form>
