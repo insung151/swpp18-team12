@@ -2,9 +2,9 @@ import { Component, OnInit } from '@angular/core';
 import { AbstractControl, FormGroup, FormBuilder, Validators, ReactiveFormsModule } from '@angular/forms';
 import { Router } from '@angular/router';
 
-import { AuthenticationService } from '../service/authentication.service';
+import { AuthenticationService } from '../../../service/authentication.service';
 import { SigninValidator } from './signinValidator';
-import { AlertService } from '../service/alert.service';
+import { AlertService } from '../../../service/alert.service';
 
 @Component({
   selector: 'app-sign-in',

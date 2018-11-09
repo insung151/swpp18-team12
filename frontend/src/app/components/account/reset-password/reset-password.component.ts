@@ -2,8 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { AbstractControl, FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 
-import { AuthenticationService } from '../service/authentication.service';
-import { AlertService } from '../service/alert.service';
+import { AuthenticationService } from '../../../service/authentication.service';
+import { AlertService } from '../../../service/alert.service';
 
 // @TODO: Change component name from reset -> forgot.
 

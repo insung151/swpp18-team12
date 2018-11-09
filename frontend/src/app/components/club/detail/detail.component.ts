@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { Club } from '../../model/club';
+import { Club } from '../../../model/club';
 
 @Component({
   selector: 'app-detail',

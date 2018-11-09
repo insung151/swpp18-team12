@@ -1,12 +1,12 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { SignInComponent } from './sign-in.component';
 import { NO_ERRORS_SCHEMA, Component } from '@angular/core';
-import { AuthenticationService } from '../service/authentication.service';
-import { AuthenticationServiceSpy } from '../service/authentication.service.spy';
+import { AuthenticationService } from '../../../service/authentication.service';
+import { AuthenticationServiceSpy } from '../../../service/authentication.service.spy';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { RouterTestingModule } from '@angular/router/testing';
-import { AlertService } from '../service/alert.service';
-import { AlertServiceSpy } from '../service/alert.service.spy';
+import { AlertService } from '../../../service/alert.service';
+import { AlertServiceSpy } from '../../../service/alert.service.spy';
 
 @Component({
   template: ``

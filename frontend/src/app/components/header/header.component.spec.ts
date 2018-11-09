@@ -1,7 +1,7 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { AuthenticationService } from '../service/authentication.service';
-import { AuthenticationServiceSpy } from '../service/authentication.service.spy';
+import { AuthenticationService } from '../../service/authentication.service';
+import { AuthenticationServiceSpy } from '../../service/authentication.service.spy';
 import { HeaderComponent } from './header.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { RouterTestingModule } from '@angular/router/testing';

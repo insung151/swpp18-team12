@@ -3,12 +3,12 @@ import { RouterModule, Routes } from '@angular/router';
 
 import { AuthGuard } from './auth.guard';
 
-import { MainComponent } from './main/main.component';
-import { SignInComponent } from './sign-in/sign-in.component';
-import { SignUpComponent } from './sign-up/sign-up.component';
-import { ResetPasswordComponent } from './reset-password/reset-password.component';
-import { ChangePasswordComponent } from './change-password/change-password.component';
-import { ClubComponent } from './club/club.component';
+import { MainComponent } from './components/main/main.component';
+import { SignInComponent } from './components/account/sign-in/sign-in.component';
+import { SignUpComponent } from './components/account/sign-up/sign-up.component';
+import { ResetPasswordComponent } from './components/account/reset-password/reset-password.component';
+import { ChangePasswordComponent } from './components/account/change-password/change-password.component';
+import { ClubComponent } from './components/club/club.component';
 
 const routes: Routes = [
   { path: '', component: MainComponent },

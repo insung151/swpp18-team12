@@ -14,19 +14,23 @@ import { AuthenticationService } from './service/authentication.service';
 
 // Components
 import { AppComponent } from './app.component';
-import { SignInComponent } from './sign-in/sign-in.component';
-import { MainComponent } from './main/main.component';
-import { SignUpComponent } from './sign-up/sign-up.component';
-import { ResetPasswordComponent } from './reset-password/reset-password.component';
-import { ChangePasswordComponent } from './change-password/change-password.component';
-import { HeaderComponent } from './header/header.component';
-import { AlertComponent } from './alert/alert.component';
+
+import { MainComponent } from './components/main/main.component';
+import { HeaderComponent } from './components/header/header.component';
+import { AlertComponent } from './components/alert/alert.component';
+
+import { SignInComponent } from './components/account/sign-in/sign-in.component';
+import { SignUpComponent } from './components/account/sign-up/sign-up.component';
+import { ResetPasswordComponent } from './components/account/reset-password/reset-password.component';
+import { ChangePasswordComponent } from './components/account/change-password/change-password.component';
+
+import { ClubComponent } from './components/club/club.component';
+import { DetailComponent } from './components/club/detail/detail.component';
+import { RatingComponent } from './components/club/rating/rating.component';
+import { PostRatingComponent } from './components/club/post-rating/post-rating.component';
+
 import { AlertService } from './service/alert.service';
-import { ClubComponent } from './club/club.component';
-import { DetailComponent } from './club/detail/detail.component';
-import { RatingComponent } from './club/rating/rating.component';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
-import { PostRatingComponent } from './post-rating/post-rating.component';
 
 @NgModule({
   declarations: [
