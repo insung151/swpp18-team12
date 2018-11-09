@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Club } from '../../model/club';
 
 @Component({
   selector: 'app-detail',
@@ -7,9 +8,19 @@ import { Component, OnInit } from '@angular/core';
 })
 export class DetailComponent implements OnInit {
 
+  private items: Club;
+
   constructor() { }
 
   ngOnInit() {
+    this.items = {
+      join_due_datetime: '12/24',
+      join_link: 'goo.gl/asdf',
+        site_link: 'http://scsc.snu.ac.kr',
+        long_description: 'Blah Blah',
+        history: 'Blah Blah',
+        hits: 123,
+    };
   }
 
 }

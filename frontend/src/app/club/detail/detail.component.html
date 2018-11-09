@@ -1,3 +1,9 @@
-<p>
-  detail works!
-</p>
+<div *ngFor="let item of items | keyvalue">
+
+  <div class="card border-primary mb-3">
+    <div class="card-header">{{item.key | uppercase}}</div>
+    <div class="card-body text-primary">
+      <p class="card-text">{{item.value}}</p>
+    </div>
+  </div>
+</div>

@@ -1,3 +1,4 @@
+<app-header></app-header>
 <p>
   club works!
 </p>
@@ -6,16 +7,16 @@
 <div class="container">
   <div>
     <ul class="list-inline">
-      <li class="list-inline-item tab-slider--trigger" [class.active]="viewMode == 'tab1'" rel="tab1" (click)="viewMode ='tab1'">Detail</li>
-      <li class="list-inline-item tab-slider--trigger" [class.active]="viewMode == 'tab2'" rel="tab2" (click)="viewMode ='tab2'">Rating</li>
+      <li class="list-inline-item tab-slider--trigger" [class.active]="viewMode == 'tab1'" rel="tab1" (click)="viewMode ='tab1'">Rating</li>
+      <li class="list-inline-item tab-slider--trigger" [class.active]="viewMode == 'tab2'" rel="tab2" (click)="viewMode ='tab2'">Detail</li>
     </ul>
   </div>
   <div [ngSwitch]="viewMode">
     <div id="tab1" *ngSwitchCase="'tab1'">
-      <app-detail></app-detail>
+      <app-rating></app-rating>
     </div>
     <div id="tab2" *ngSwitchCase="'tab2'">
-      <app-rating></app-rating>
+      <app-detail></app-detail>
     </div>
   </div>
 </div>

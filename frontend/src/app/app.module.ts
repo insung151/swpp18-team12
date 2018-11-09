@@ -22,6 +22,11 @@ import { ChangePasswordComponent } from './change-password/change-password.compo
 import { HeaderComponent } from './header/header.component';
 import { AlertComponent } from './alert/alert.component';
 import { AlertService } from './service/alert.service';
+import { ClubComponent } from './club/club.component';
+import { DetailComponent } from './club/detail/detail.component';
+import { RatingComponent } from './club/rating/rating.component';
+import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
+import { PostRatingComponent } from './post-rating/post-rating.component';
 
 @NgModule({
   declarations: [
@@ -33,6 +38,10 @@ import { AlertService } from './service/alert.service';
     ChangePasswordComponent,
     HeaderComponent,
     AlertComponent,
+    ClubComponent,
+    DetailComponent,
+    RatingComponent,
+    PostRatingComponent,
   ],
   imports: [
     BrowserModule,
@@ -40,6 +49,7 @@ import { AlertService } from './service/alert.service';
     HttpClientModule,
     FormsModule,
     ReactiveFormsModule,
+    FontAwesomeModule,
   ],
   providers: [
     AuthenticationService,

@@ -8,6 +8,7 @@ import { SignInComponent } from './sign-in/sign-in.component';
 import { SignUpComponent } from './sign-up/sign-up.component';
 import { ResetPasswordComponent } from './reset-password/reset-password.component';
 import { ChangePasswordComponent } from './change-password/change-password.component';
+import { ClubComponent } from './club/club.component';
 
 const routes: Routes = [
   { path: '', component: MainComponent },
@@ -19,6 +20,7 @@ const routes: Routes = [
       { path: 'forgot_password', component: ResetPasswordComponent },
     ]
   },
+  { path: 'club', component: ClubComponent },
   { path: '**', component: MainComponent },
 ];
 
