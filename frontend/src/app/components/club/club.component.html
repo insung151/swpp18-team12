@@ -1,7 +1,26 @@
 <app-header></app-header>
-<p>
-  club works!
-</p>
+
+<div *ngIf="imgSrc">
+  <img [src]="imgSrc">
+</div>
+
+
+<div class="card flex-row flex-wrap">
+  <div class="card-header border-0">
+    <img [src]="club.profile_image">
+  </div>
+  <div class="card-block px-2">
+    <h4 class="card-title">{{club.name}}</h4>
+    <div class="text-muted">{{club.activity_type}}</div>
+    <div class="text-muted">{{club.category}} >> {{club.subcategory}}</div>
+    <p class="card-text">{{club.short_description}}</p>
+    <a href="#" class="btn btn-primary">Rating!</a>
+  </div>
+  <div class="w-100"></div>
+  <div class="card-footer w-100 text-muted">
+    TAGS:<div *ngFor="let tag of club.tags">tag</div>
+  </div>
+</div>
 
 
 <div class="container">

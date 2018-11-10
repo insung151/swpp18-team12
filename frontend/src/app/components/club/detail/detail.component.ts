@@ -12,9 +12,12 @@ import { Club } from 'src/app/model/club';
 })
 export class DetailComponent implements OnInit {
 
-  private items: ClubDetail;
-
+  /*
+  TODO: Important note
+  Change this area from club_short to club_detail.
+  */
   private club: Club;
+  private imgSrc: string;
 
   constructor(
     private activatedRoute: ActivatedRoute,
@@ -30,6 +33,7 @@ export class DetailComponent implements OnInit {
   async getClub(): Promise<void> {
     const id = +this.activatedRoute.snapshot.paramMap.get('id');
     this.club = await this.clubService.getClub(id);
+    this.imgSrc = this.club.profile_image;
   };
 
 }

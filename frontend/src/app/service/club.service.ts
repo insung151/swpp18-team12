@@ -34,7 +34,7 @@ export class ClubService {
       short_description: '',
       category: 0,
       subcategory: 0,
-      tags: [],
+      tags: null,
     }
     const url = `api/club/${id}/club_short`;
     try {
