@@ -26,5 +26,26 @@ export class ClubService {
     }
   }
 
+  async getClub(id: number): Promise<Club> {
+    const nullClub: Club = {
+      name: '1',
+      profile_image: null,
+      activity_type: 0,
+      short_description: '',
+      category: 0,
+      subcategory: 0,
+      tags: [],
+    }
+    const url = `api/club/${id}/club_short`;
+    try {
+      const res: any = await this.http.get(url,
+        { headers: getCSRFHeaders(), withCredentials: true, })
+        .toPromise();
+      return res;
+    } catch (e) {
+      return nullClub;
+    }
+  }
+
   constructor(private http: HttpClient) { }
 }

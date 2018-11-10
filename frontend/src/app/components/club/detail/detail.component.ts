@@ -1,5 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { ClubDetail } from '../../../model/club-detail';
+import { ClubService } from 'src/app/service/club.service';
+import { Router, ActivatedRoute } from '@angular/router';
+import { AlertService } from 'src/app/service/alert.service';
+import { Club } from 'src/app/model/club';
 
 @Component({
   selector: 'app-detail',
@@ -10,17 +14,22 @@ export class DetailComponent implements OnInit {
 
   private items: ClubDetail;
 
-  constructor() { }
+  private club: Club;
+
+  constructor(
+    private activatedRoute: ActivatedRoute,
+    private clubService: ClubService,
+    private alertService: AlertService,
+    private router: Router,
+  ) { }
 
   ngOnInit() {
-    this.items = {
-      join_due_datetime: '12/24',
-      join_link: 'goo.gl/asdf',
-        site_link: 'http://scsc.snu.ac.kr',
-        long_description: 'Blah Blah',
-        history: 'Blah Blah',
-        hits: 123,
-    };
+    this.getClub();
   }
+
+  async getClub(): Promise<void> {
+    const id = +this.activatedRoute.snapshot.paramMap.get('id');
+    this.club = await this.clubService.getClub(id);
+  };
 
 }

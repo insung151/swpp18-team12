@@ -23,8 +23,8 @@ const routes: Routes = [
   },
   { path: 'club',
     children: [
-      { path: '', component: ClubComponent },
       { path: 'new', component: PostClubComponent },
+      { path: ':id', component: ClubComponent },
     ],
   },
   { path: '**', component: MainComponent },
