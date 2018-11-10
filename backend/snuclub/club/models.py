@@ -25,7 +25,10 @@ class Club(TimestampedMixin, models.Model):
     동아리 모델입니다
     """
     # 동아리 이름
-    name = models.CharField(max_length=30)
+    name = models.CharField(
+        max_length=30,
+        db_index=True
+    )
 
     # 동아리 최고 관리자
     admin = models.ForeignKey(
@@ -42,7 +45,8 @@ class Club(TimestampedMixin, models.Model):
     )
 
     activity_type = models.IntegerField(
-        choices=ACTIVITY_TYPE
+        choices=ACTIVITY_TYPE,
+        db_index=True
     )
 
     profile_image = models.ImageField(
@@ -52,12 +56,18 @@ class Club(TimestampedMixin, models.Model):
     )
     short_description = models.TextField(blank=True)
 
-    category = models.IntegerField(choices=CATEGORIES)
-    subcategory = models.IntegerField(choices=SUBCATEGORIES)
+    category = models.IntegerField(
+        choices=CATEGORIES,
+        db_index=True
+    )
+    subcategory = models.IntegerField(
+        choices=SUBCATEGORIES,
+        db_index=True
+    )
     tags = models.ManyToManyField(
         Tag,
         related_name='clubs',
-        blank=True
+        blank=True,
     )
 
 
