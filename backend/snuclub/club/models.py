@@ -16,6 +16,9 @@ class Tag(models.Model):
         db_index=True
     )
 
+    def __str__(self):
+        return self.name
+
 
 class Club(TimestampedMixin, models.Model):
     """
