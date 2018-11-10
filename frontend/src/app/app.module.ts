@@ -31,6 +31,7 @@ import { PostRatingComponent } from './components/club/post-rating/post-rating.c
 
 import { AlertService } from './service/alert.service';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
+import { PostClubComponent } from './components/club/post-club/post-club.component';
 
 @NgModule({
   declarations: [
@@ -46,6 +47,7 @@ import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
     DetailComponent,
     RatingComponent,
     PostRatingComponent,
+    PostClubComponent,
   ],
   imports: [
     BrowserModule,

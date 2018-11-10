@@ -2,6 +2,7 @@
   <nav>
     <a routerLink="/">Main</a>
     <a routerLink="/club">Club</a>
+    <a routerLink="/club/new">NewClub!</a>
     <span class="right" *ngIf="loggedIn">
       <span>Hello, {{this.username}}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
       <button class="btn btn-danger" (click)="logout()">Logout</button>

@@ -1,12 +1,12 @@
-<form>
+<form [formGroup]="createClubForm" (submit)="createClub()">
   <div class="form-group">
     <label for="clubname">Club Name</label>
-    <input type="text" class="form-control" id="clubname" aria-describedby="emailHelp" placeholder="Enter Club name">
+    <input type="text" class="form-control" id="clubname" aria-describedby="emailHelp" placeholder="Enter Club name" [formControl]="createClubForm.controls['name']">
   </div>
 
   <div class="form-group">
     <label for="activity">Activity type</label>
-    <select class="form-control" id="activity">
+    <select class="form-control" id="activity" [formControl]="createClubForm.controls['activity_type']">
       <option value="1">학술</option>
       <option value="2">취미</option>
       <option value="3">예술</option>
@@ -20,7 +20,7 @@
 
   <div class="form-group">
     <label for="exampleTextarea">Short description</label>
-    <textarea class="form-control" id="exampleTextarea" rows="3"></textarea>
+    <textarea class="form-control" id="exampleTextarea" rows="3" [formControl]="createClubForm.controls['short_description']"></textarea>
   </div>
 
   <div class="form-group">
@@ -28,7 +28,7 @@
     <br>
     <div class="btn btn-primary btn-file"> Browse
       <input type="file" class="form-control-file" (change)="onSelectFile($event)" id="profile"
-        aria-describedby="fileHelp">
+        aria-describedby="fileHelp" [formControl]="createClubForm.controls['profile_image']">
       <img [src]="url" height="100"> <br />
     </div>
     <small id="fileHelp" class="form-text text-muted">동아리를 한눈에 나타낼 수 있는 사진을 골라주세요!</small>
@@ -37,7 +37,7 @@
 
   <div class="form-group">
     <label for="category">Category</label>
-    <select class="form-control" id="category">
+    <select class="form-control" id="category" [formControl]="createClubForm.controls['category']">
       <option value="1">중앙동아리</option>
       <option value="2">인문대학</option>
       <option value="3">사회과학대학</option>
@@ -60,7 +60,7 @@
 
   <div class="form-group">
     <label for="subcategory">Subcategory</label>
-    <select class="form-control" id="subcategory">
+    <select class="form-control" id="subcategory" [formControl]="createClubForm.controls['subcategory']">
     </select>
   </div>
 
@@ -71,5 +71,10 @@
       이용 약관 동의
     </label>
   </div>
+
   <button type="submit" class="btn btn-primary">Submit</button>
 </form>
+
+<div>
+  Back to <a [routerLink]="['/']">Main Page</a>
+</div>
