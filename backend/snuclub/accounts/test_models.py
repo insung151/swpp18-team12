@@ -37,5 +37,4 @@ class UserTestCase(TestCase):
         profile.save()
 
         assert hasattr(self.user, 'userprofile')
-        # Delete current cp for other test
-        profile.delete()
+        self.assertEqual(self.user.username, profile.username)

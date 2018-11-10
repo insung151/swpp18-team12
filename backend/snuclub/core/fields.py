@@ -16,3 +16,4 @@ class IntegerRangeField(models.IntegerField):
         defaults = {'min_value': self.min_value, 'max_value': self.max_value}
         defaults.update(kwargs)
         return super(IntegerRangeField, self).formfield(**defaults)
+
