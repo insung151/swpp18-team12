@@ -1,18 +1,22 @@
-<form [formGroup]="signInForm" [class.error]="!signInForm.valid" (submit)="logIn()">
+<form class="ui large" [formGroup]="signInForm" [class.error]="!signInForm.valid" (submit)="logIn()">
 
   <!-- Email Input -->
-  <div class="col-3">
-    <input class="form-control" id="email-input" name="email" type="email" placeholder="Email" [formControl]="signInForm.controls['email']">
+  <div class="required field">
+    <div class="ui left icon input">
+      <i class="user icon"></i>
+      <input class="form-control" id="email-input" name="email" type="email" placeholder="Email" [formControl]="signInForm.controls['email']">
+    </div>
   </div>
 
   <!-- Password Input -->
-  <div class="col-3">
-    <input class="form-control" id="pw-input" name="password" type="password" placeholder="Password" [formControl]="signInForm.controls['password']">
+  <div class="required field">
+    <div class="ui left icon input">
+      <i class="lock icon"></i>
+      <input class="form-control" id="pw-input" name="password" type="password" placeholder="Password" [formControl]="signInForm.controls['password']">
+    </div>
   </div>
 
-  <div class="col-3">
-    <button class="btn btn-primary" id="signin-button" type="submit" [disabled]="!signInForm.valid">Submit!</button>
-  </div>
+    <button class="ui submit red button" id="signin-button" type="submit" [disabled]="!signInForm.valid">Submit!</button>
 </form>
 
 <div>

@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { CategoryOption } from '../../model/club-option';
+import { CategoryOption, ActivityOption } from '../../model/club-option';
 
 @Component({
   selector: 'app-search',
@@ -8,7 +8,14 @@ import { CategoryOption } from '../../model/club-option';
 })
 export class SearchComponent implements OnInit {
 
-  private category: string[] = CategoryOption;
+  private activityOption: string[] = ActivityOption;
+  private activity: string[];
+
+  private categoryOption: string[] = CategoryOption;
+  private category: string[];
+
+  private subcategoryOption: string[] = [];
+  private subcategory: string[];
 
   constructor() { }
 
@@ -17,13 +24,16 @@ export class SearchComponent implements OnInit {
 
  
   toggle() {
+    /*
     const x = document.getElementById("detail");
     if (x.style.display === "none") {
       x.style.display = "block"
     } else {
       x.style.display = "none";
     }
+    */
+    console.dir(this.category);
   }
- 
+
 
 }

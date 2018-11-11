@@ -1,40 +1,40 @@
-<form [formGroup]="signUpForm" [class.error]="!signUpForm.valid" (submit)="signUp()">
+<form class="ui form segment" [formGroup]="signUpForm" [class.error]="!signUpForm.valid" (submit)="signUp()">
 
   <!-- Email Input -->
-  <div class="col-3">
-    <input class="form-control" type="text" name="email" placeholder="Email" [formControl]="signUpForm.controls['email']">
+  <div class="field">
+    <input class="input-form" type="text" name="email" placeholder="Email" [formControl]="signUpForm.controls['email']">
   </div>
   <div *ngIf="email.hasError('invalidEmail')&&email.touched"> Email Should be xxxxx@xxxxxx.xxx
   </div>
 
   <!-- Username Input -->
-  <div class="col-3">
-    <input class="form-control" type="text" name="username" placeholder="ID" [formControl]="signUpForm.controls['username']">
+  <div class="field">
+  <input class="form-control" type="text" name="username" placeholder="ID" [formControl]="signUpForm.controls['username']">
   </div>
   <div *ngIf="username.hasError('invalidUsername')&&username.touched"> Username Should not be
     Empty
   </div>
 
   <!-- Password Input -->
-  <div class="col-3">
-    <input class="form-control" type="password" name="password" placeholder="Password" [formControl]="signUpForm.controls['password']">
+  <div class="field">
+  <input class="form-control" type="password" name="password" placeholder="Password" [formControl]="signUpForm.controls['password']">
   </div>
   <div *ngIf="password.hasError('invalidPassword')&&password.touched"> Must contain at least 8
     characters with at least one number
   </div>
 
   <!-- Password Confirmation Input -->
-  <div class="col-3">
-    <input class="form-control" type="password" name="password_confirmation" placeholder="Password Confirmation"
-      [formControl]="signUpForm.controls['password_confirmation']">
+  <div class="field">
+  <input class="form-control" type="password" name="password_confirmation" placeholder="Password Confirmation"
+    [formControl]="signUpForm.controls['password_confirmation']">
   </div>
   <div *ngIf="password_confirmation.hasError('invalidPasswordConfirmation')&&password_confirmation.touched">
     Must match password.
   </div>
 
   <!-- Year of Admission Input -->
-  <div class="col-3">
-    <input class="form-control" type="text" name="year_of_admission" placeholder="Year of Admission" [formControl]="signUpForm.controls['year_of_admission']">
+  <div class="field">
+  <input class="form-control" type="text" name="year_of_admission" placeholder="Year of Admission" [formControl]="signUpForm.controls['year_of_admission']">
   </div>
   <div *ngIf="year_of_admission.hasError('invalidYearOfAdmission')&&year_of_admission.touched">
     Year of Admission Should not be Empty
@@ -42,18 +42,16 @@
 
 
   <!-- Department Input -->
-  <div class="col-3">
-    <input class="form-control" type="text" name="department" placeholder="Department" [formControl]="signUpForm.controls['department']">
+  <div class="field">
+  <input class="form-control" type="text" name="department" placeholder="Department" [formControl]="signUpForm.controls['department']">
   </div>
   <div *ngIf="department.hasError('invalidDepartment')&&department.touched"> Department Should
     not be Empty
   </div>
 
 
-  <div class="col-3">
-    <button class="btn btn-primary" type="submit" [disabled]="!signUpForm.valid">Sign Up
-    </button>
-  </div>
+  <button class="ui primary submit button" type="submit" [disabled]="!signUpForm.valid">Sign Up
+  </button>
 </form>
 
 <div>

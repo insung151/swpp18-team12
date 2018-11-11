@@ -1,55 +1,56 @@
-<form [formGroup]="createClubForm" (submit)="createClub()">
+<form class="ui form segment" [formGroup]="createClubForm" (submit)="createClub()">
   <div class="form-group">
     <label for="clubname">Club Name</label>
-    <input type="text" class="form-control" id="clubname" aria-describedby="emailHelp" placeholder="Enter Club name" [formControl]="createClubForm.controls['name']">
+    <input type="text" class="form-control" id="clubname" aria-describedby="emailHelp" placeholder="Enter Club name"
+      [formControl]="createClubForm.controls['name']">
   </div>
 
-  <div class="form-group">
+  <div class="field">
     <label for="activity">Activity type</label>
     <select class="form-control" id="activity" [formControl]="createClubForm.controls['activity_type']">
       <option [value]="i+1" *ngFor="let item of activityOption; let i=index">{{item}}</option>
     </select>
   </div>
 
-  <div class="form-group">
+  <div class="field">
     <label for="exampleTextarea">Short description</label>
     <textarea class="form-control" id="exampleTextarea" rows="3" [formControl]="createClubForm.controls['short_description']"></textarea>
   </div>
 
-  <div class="form-group">
+  <div class="field">
     <label for="profile">File input</label>
-    <br>
-    <div class="btn btn-primary btn-file"> Browse
-      <input type="file" class="form-control-file" (change)="onSelectFile($event)" id="profile"
-        aria-describedby="fileHelp" [formControl]="createClubForm.controls['profile_image']">
-      <img [src]="url" height="100"> <br />
+    <div>
+      <label for="file" class="ui icon button">
+        <i class="file icon"></i>
+        Open File</label>
+      <input type="file" id="file" (change)="onSelectFile($event)" style="display:none" [formControl]="createClubForm.controls['profile_image']">
+      <img class="ui small image" [src]="url"> <br />
+      <small id="fileHelp" class="form-text text-muted">동아리를 한눈에 나타낼 수 있는 사진을 골라주세요!</small>
     </div>
-    <small id="fileHelp" class="form-text text-muted">동아리를 한눈에 나타낼 수 있는 사진을 골라주세요!</small>
   </div>
 
-
-  <div class="form-group">
+  <div class="field">
     <label for="category">Category</label>
     <select class="form-control" id="category" [formControl]="createClubForm.controls['category']">
       <option [value]="i+1" *ngFor="let item of categoryOption; let i=index">{{item}}</option>
     </select>
   </div>
 
-  <div class="form-group">
+  <div class="field">
     <label for="subcategory">Subcategory</label>
     <select class="form-control" id="subcategory" [formControl]="createClubForm.controls['subcategory']">
     </select>
   </div>
 
 
-  <div class="form-check">
-    <label class="form-check-label">
-      <input type="checkbox" class="form-check-input">
-      이용 약관 동의
-    </label>
+  <div class="inline field">
+    <div class="ui checkbox">
+      <input type="checkbox" name="terms">
+      <label>이용 약관 동의</label>
+    </div>
   </div>
 
-  <button type="submit" class="btn btn-primary">Submit</button>
+  <button type="submit" class="ui submit button">Submit</button>
 </form>
 
 <div>
