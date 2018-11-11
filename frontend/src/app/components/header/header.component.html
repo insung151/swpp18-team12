@@ -1,8 +1,9 @@
 <header>
   <nav>
     <a routerLink="/">Main</a>
-    <a routerLink="/club">Club</a>
+    <a routerLink="/club/1">Club</a>
     <a routerLink="/club/new">NewClub!</a>
+    <a routerLink="/search">Search</a>
     <span class="right" *ngIf="loggedIn">
       <span>Hello, {{this.username}}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
       <button class="btn btn-danger" (click)="logout()">Logout</button>

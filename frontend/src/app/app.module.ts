@@ -9,6 +9,9 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { AppRoutingModule } from './app-routing.module';
 import { AuthGuard } from './auth.guard';
 
+// node_modules Module
+import { SuiModule } from 'ng2-semantic-ui';
+
 // Services
 import { AuthenticationService } from './service/authentication.service';
 
@@ -32,6 +35,7 @@ import { PostRatingComponent } from './components/club/post-rating/post-rating.c
 import { AlertService } from './service/alert.service';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { PostClubComponent } from './components/club/post-club/post-club.component';
+import { SearchComponent } from './components/search/search.component';
 
 @NgModule({
   declarations: [
@@ -48,6 +52,7 @@ import { PostClubComponent } from './components/club/post-club/post-club.compone
     RatingComponent,
     PostRatingComponent,
     PostClubComponent,
+    SearchComponent,
   ],
   imports: [
     BrowserModule,
@@ -56,6 +61,7 @@ import { PostClubComponent } from './components/club/post-club/post-club.compone
     FormsModule,
     ReactiveFormsModule,
     FontAwesomeModule,
+    SuiModule,
   ],
   providers: [
     AuthenticationService,

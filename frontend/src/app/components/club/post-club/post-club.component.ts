@@ -4,6 +4,7 @@ import { AlertService } from 'src/app/service/alert.service';
 import { ClubService } from 'src/app/service/club.service';
 import { Router } from '@angular/router';
 import { Club } from 'src/app/model/club';
+import { CategoryOption, ActivityOption } from '../../../model/club-option';
 
 @Component({
   selector: 'app-post-club',
@@ -14,6 +15,8 @@ export class PostClubComponent implements OnInit {
 
   private url: string;
   private selectedFile: File;
+  private categoryOption: string[] = CategoryOption;
+  private activityOption: string[] = ActivityOption;
 
   createClubForm: FormGroup;
 
@@ -86,8 +89,8 @@ export class PostClubComponent implements OnInit {
       const club: Club = {
         name: this.name.value,
         // profile_image: this.profile_image.value,
-        // profile_image: this.url,
-        profile_image: this.selectedFile,
+        profile_image: this.url,
+        // profile_image: this.selectedFile,
         activity_type: this.activity_type.value,
         short_description: this.short_description.value,
         category: this.category.value,

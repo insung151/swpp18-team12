@@ -10,6 +10,7 @@ import { ResetPasswordComponent } from './components/account/reset-password/rese
 import { ChangePasswordComponent } from './components/account/change-password/change-password.component';
 import { ClubComponent } from './components/club/club.component';
 import { PostClubComponent } from './components/club/post-club/post-club.component';
+import { SearchComponent } from './components/search/search.component';
 
 const routes: Routes = [
   { path: '', component: MainComponent },
@@ -27,6 +28,7 @@ const routes: Routes = [
       { path: ':id', component: ClubComponent },
     ],
   },
+  { path: 'search', component: SearchComponent },
   { path: '**', component: MainComponent },
 ];
 

@@ -3,6 +3,7 @@ import { FormsModule } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ClubService } from 'src/app/service/club.service';
 import { AlertService } from 'src/app/service/alert.service';
+import { Club } from 'src/app/model/club';
 
 @Component({
   selector: 'app-club',
