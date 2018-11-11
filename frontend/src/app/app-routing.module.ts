@@ -11,6 +11,7 @@ import { ChangePasswordComponent } from './components/account/change-password/ch
 import { ClubComponent } from './components/club/club.component';
 import { PostClubComponent } from './components/club/post-club/post-club.component';
 import { SearchComponent } from './components/search/search.component';
+import { PostRatingComponent } from './components/club/post-rating/post-rating.component';
 
 const routes: Routes = [
   { path: '', component: MainComponent },
@@ -22,10 +23,11 @@ const routes: Routes = [
       { path: 'forgot_password', component: ResetPasswordComponent },
     ]
   },
-  { path: 'club',
+  { path: 'club/new', component: PostClubComponent },
+  { path: 'club/:id',
     children: [
-      { path: 'new', component: PostClubComponent },
-      { path: ':id', component: ClubComponent },
+      { path: '', component: ClubComponent },
+      { path: 'rating', component: PostRatingComponent, canActivate: [AuthGuard]},
     ],
   },
   { path: 'search', component: SearchComponent },

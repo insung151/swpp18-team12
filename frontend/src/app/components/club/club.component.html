@@ -1,33 +1,30 @@
 <app-header></app-header>
 
-<div *ngIf="imgSrc">
-  {{imgSrc}}
-  <img [src]="imgSrc">
-</div>
-
-
-<div class="card flex-row flex-wrap">
-  <div class="card-header border-0">
-    <img [src]="club.profile_image">
+<div class="ui card" *ngIf="club">
+  <div class="content">
+    <div class="header">{{club.name}}</div>
   </div>
-  <div class="card-block px-2">
-    <h4 class="card-title">{{club.name}}</h4>
-    <div class="text-muted">{{club.activity_type}}</div>
-    <div class="text-muted">{{club.category}} >> {{club.subcategory}}</div>
-    <p class="card-text">{{club.short_description}}</p>
-    <a href="#" class="btn btn-primary">Rating!</a>
+  <div class="content">
+    <h4 class="ui sub header">{{club.activity_type}}, {{club.category}} > {{club.subcategory}}</h4>
+    <div class="ui small feed">
+      {{club.short_description}}
+    </div>
   </div>
-  <div class="w-100"></div>
-  <div class="card-footer w-100 text-muted">
-    TAGS:<div *ngFor="let tag of club.tags">tag</div>
+
+  <div class="extra content">
+    <button class="ui button" [routerLink]="['rating']">Rate this club</button>
   </div>
 </div>
 
 <sui-tabset>
-    <div class="ui top attached tabular menu">
-        <a class="item" suiTabHeader="1">Rating</a>
-        <a class="item" suiTabHeader="2">Detail</a>
-    </div>
-    <div class="ui bottom attached segment" suiTabContent="1"><app-rating></app-rating></div>
-    <div class="ui bottom attached segment" suiTabContent="2"><app-detail></app-detail></div>
+  <div class="ui top attached tabular menu">
+    <a class="item" suiTabHeader="1">Rating</a>
+    <a class="item" suiTabHeader="2">Detail</a>
+  </div>
+  <div class="ui bottom attached segment" suiTabContent="1">
+    <app-rating></app-rating>
+  </div>
+  <div class="ui bottom attached segment" suiTabContent="2">
+    <app-detail></app-detail>
+  </div>
 </sui-tabset>
