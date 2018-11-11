@@ -27,15 +27,6 @@ export class ClubService {
   }
 
   async getClub(id: number): Promise<Club> {
-    const nullClub: Club = {
-      name: '1',
-      profile_image: null,
-      activity_type: 0,
-      short_description: '',
-      category: 0,
-      subcategory: 0,
-      tags: null,
-    }
     const url = `api/club/${id}/club_short`;
     try {
       const res: any = await this.http.get(url,
@@ -43,7 +34,20 @@ export class ClubService {
         .toPromise();
       return res;
     } catch (e) {
-      return nullClub;
+      return null;
+    }
+  }
+
+  async getRating(id: number): Promise<string[]> {
+    const url = `api/club/${id}/rating`;
+    try {
+      const res: any = await this.http.get(url,
+        { headers: getCSRFHeaders(), withCredentials: true, })
+        .toPromise();
+      const comments: string[] = res.map(x => x['comments']);
+      return comments;
+    } catch (e) {
+      return null;
     }
   }
 

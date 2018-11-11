@@ -1,13 +1,7 @@
-<div *ngIf="imgSrc">
-  <img [src]="imgSrc">
-</div>
-
 <div *ngFor="let item of club | keyvalue">
-
-  <div class="card border-primary mb-3">
-    <div *ngIf="item.value" class="card-header">{{item.key | uppercase}}</div>
-    <div class="card-body text-primary">
-      <p class="card-text">{{item.value}}</p>
+  <div class="ui card fluid">
+    <div *ngIf="item.value" class="header">{{item.key | uppercase}}</div>
+    <div class="content">{{item.value}}
     </div>
   </div>
 </div>

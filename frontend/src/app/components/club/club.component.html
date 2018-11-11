@@ -22,9 +22,9 @@
     <a class="item" suiTabHeader="2">Detail</a>
   </div>
   <div class="ui bottom attached segment" suiTabContent="1">
-    <app-rating></app-rating>
+    <app-rating [clubId]="clubId"></app-rating>
   </div>
   <div class="ui bottom attached segment" suiTabContent="2">
-    <app-detail></app-detail>
+    <app-detail [clubId]="clubId"></app-detail>
   </div>
 </sui-tabset>

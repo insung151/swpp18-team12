@@ -15,6 +15,7 @@ import { Club } from 'src/app/model/club';
 export class ClubComponent implements OnInit {
 
   private club: Club;
+  private clubId: number;
   private imgSrc: string;
 
 
@@ -31,8 +32,8 @@ export class ClubComponent implements OnInit {
   }
 
   async getClub(): Promise<void> {
-    const id = +this.activatedRoute.snapshot.paramMap.get('id');
-    this.club = await this.clubService.getClub(id);
+    this.clubId = +this.activatedRoute.snapshot.paramMap.get('id');
+    this.club = await this.clubService.getClub(this.clubId);
     this.imgSrc = this.club.profile_image;
   };
 }

@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 import { ClubDetail } from '../../../model/club-detail';
 import { ClubService } from 'src/app/service/club.service';
 import { Router, ActivatedRoute } from '@angular/router';
@@ -11,6 +11,7 @@ import { Club } from 'src/app/model/club';
   styleUrls: ['./detail.component.css']
 })
 export class DetailComponent implements OnInit {
+  @Input() clubId: number;
 
   /*
   TODO: Important note
@@ -31,8 +32,7 @@ export class DetailComponent implements OnInit {
   }
 
   async getClub(): Promise<void> {
-    const id = +this.activatedRoute.snapshot.paramMap.get('id');
-    this.club = await this.clubService.getClub(id);
+    this.club = await this.clubService.getClub(this.clubId);
     this.imgSrc = this.club.profile_image;
   };
 

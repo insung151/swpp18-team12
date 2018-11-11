@@ -9,7 +9,7 @@ import { CategoryOption, ActivityOption } from '../../model/club-option';
 export class SearchComponent implements OnInit {
 
   private activityOption: string[] = ActivityOption;
-  private activity: string[];
+  private activity: any[];
 
   private categoryOption: string[] = CategoryOption;
   private category: string[];
@@ -22,18 +22,8 @@ export class SearchComponent implements OnInit {
   ngOnInit() {
   }
 
- 
-  toggle() {
-    /*
-    const x = document.getElementById("detail");
-    if (x.style.display === "none") {
-      x.style.display = "block"
-    } else {
-      x.style.display = "none";
-    }
-    */
-    console.dir(this.category);
+  search(): void {
+    alert("I've not implemented yet!");
   }
-
 
 }

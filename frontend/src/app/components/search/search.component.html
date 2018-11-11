@@ -4,7 +4,7 @@
 <span class="ui search">
   <div class="ui fluid action input">
     <input class="prompt" type="text" placeholder="search name">
-    <div class="ui button">Search</div>
+    <button class="ui primary button" (click)="search()">Search</button>
   </div>
 </span>
 
@@ -15,8 +15,7 @@
 
   <div class="ui segment">
     <p>Activity Type</p>
-    <sui-multi-select class="selection" [(ngModel)]="activity" [options]="options" [hasLabels]="!hideLabels"
-      #multiSelect>
+    <sui-multi-select placeholder="Activity Type" class="selection" [(ngModel)]="activity" [options]="options" [hasLabels]="!hideLabels">
       <sui-select-option *ngFor="let option of activityOption" [value]="option">
       </sui-select-option>
     </sui-multi-select>
@@ -24,8 +23,7 @@
 
   <div class="ui segment">
     <p>Category</p>
-    <sui-multi-select class="selection" [(ngModel)]="category" [options]="options" [hasLabels]="!hideLabels"
-      #multiSelect>
+    <sui-multi-select placeholder="Category" class="selection" [(ngModel)]="category" [options]="options" [hasLabels]="!hideLabels">
       <sui-select-option *ngFor="let option of categoryOption" [value]="option">
       </sui-select-option>
     </sui-multi-select>
@@ -33,10 +31,13 @@
 
   <div class="ui segment">
     <p>subcategory</p>
-    <sui-multi-select class="selection" [(ngModel)]="subcategory" [options]="options" [hasLabels]="!hideLabels"
-      #multiSelect>
+    <sui-multi-select placeholder="Subcategory" class="selection" [(ngModel)]="subcategory" [options]="options" [hasLabels]="!hideLabels">
       <sui-select-option *ngFor="let option of subcategoryOption" [value]="option">
       </sui-select-option>
     </sui-multi-select>
   </div>
 </div>
+
+{{activity}}
+{{category}}
+{{subcategory}}

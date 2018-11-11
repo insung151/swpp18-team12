@@ -1,6 +1,5 @@
-import { Component, OnInit } from '@angular/core';
-import { faCoffee } from '@fortawesome/free-solid-svg-icons';
-
+import { Component, OnInit, Input } from '@angular/core';
+import { ClubService } from 'src/app/service/club.service';
 
 @Component({
   selector: 'app-rating',
@@ -8,12 +7,22 @@ import { faCoffee } from '@fortawesome/free-solid-svg-icons';
   styleUrls: ['./rating.component.css']
 })
 export class RatingComponent implements OnInit {
-  title = 'app';
-  faCoffee = faCoffee;
+  @Input() clubId: number;
 
-  constructor() { }
+  ratings: string[];
+
+  getRatings(): void {
+    this.clubService.getRating(this.clubId).then(
+      ratings => this.ratings = ratings 
+    );
+    console.log(this.clubId);
+    console.log(this.ratings);
+  }
+
+  constructor(private clubService: ClubService) { }
 
   ngOnInit() {
+    this.getRatings();
   }
 
 }
