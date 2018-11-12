@@ -39,3 +39,8 @@ else:
             }
         }
     }
+
+if ENV_SETTINGS_MODE == 'dev':
+    INSTALLED_APPS += [
+        'rest_framework_swagger',
+    ]
