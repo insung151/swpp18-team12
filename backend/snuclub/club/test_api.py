@@ -54,4 +54,4 @@ class ClubTestCase(APITestCase):
             }
         )
         self.assertEqual(resp.status_code, 200)
-        self.assertEqual(resp.data, serializer.data)
+        self.assertEqual(resp.data["results"], serializer.data)

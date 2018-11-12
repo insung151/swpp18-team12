@@ -56,7 +56,7 @@ class ClubTestCase(APITestCase):
             context={'request': MockRequest(AnonymousUser)}
         )
         self.assertEqual(resp.status_code, 200)
-        self.assertEqual(resp.data, serializer.data)
+        self.assertEqual(resp.data['results'], serializer.data)
 
     def test_user_rating_create(self):
         user = User.objects.create_user(
