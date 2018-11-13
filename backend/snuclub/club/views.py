@@ -92,26 +92,35 @@ class ClubProfileImageApiView(APIView):
     def put(self, request, *args, **kwargs):
         try:
             club = Club.objects.get(id=self.kwargs['club_id'])
-            new_image = self.serializer_class.validated_data.get('profile_image')
+            if club.admin.user != request.user:
+                return Response(status=status.HTTP_403_FORBIDDEN)
+            serializer = self.serializer_class(data=request.data)
+            serializer.is_valid()
+            new_image = serializer.validated_data['profile_image']
             club.profile_image = new_image
             club.save()
-            return Response({'message':'Success'}, status=status.HTTP_200_OK)
+            return Response({'message': 'Success'}, status=status.HTTP_200_OK)
         except ObjectDoesNotExist:
-            return Response({"message":"Club does not exist"}, status=status.HTTP_404_NOT_FOUND)
+            return Response({"message": "Club does not exist"}, status=status.HTTP_404_NOT_FOUND)
 
 
 class ClubAdminChangeApiView(APIView):
     permission_classes = (IsClubAdminOrReadOnly,)
     serializer_class = ChangeAdminSerializer
+    model = Club
 
     def put(self, request, *args, **kwargs):
         try:
             club = Club.objects.get(id=self.kwargs['club_id'])
-            new_admin = self.serializer_class.validated_data.get('admin')
+            if club.admin.user != request.user:
+                return Response(status=status.HTTP_403_FORBIDDEN)
+            serializer = self.serializer_class(data=request.data)
+            serializer.is_valid()
+            new_admin = serializer.validated_data['admin']
             if User.objects.filter(username=new_admin).exists():
-               club.admin = new_admin
-               club.save()
-               return Response({'message': 'Success'}, status=status.HTTP_200_OK)
+                club.admin = User.objects.get(username=new_admin).userprofile
+                club.save()
+                return Response({'message': f'Success. Changed admin to {club.admin.username}'}, status=status.HTTP_200_OK)
             else:
                 return Response({'message': 'User does not exist!'}, status=status.HTTP_404_NOT_FOUND)
         except ObjectDoesNotExist:
