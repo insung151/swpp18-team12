@@ -78,8 +78,6 @@ class ClubDetailSerializer(serializers.ModelSerializer):
                   'history']
 
 
-
-
 class ChangeProfileImageSerializer(serializers.Serializer):
     profile_image = serializers.ImageField(allow_null=True)
 
