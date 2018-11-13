@@ -31,11 +31,15 @@ import { ClubComponent } from './components/club/club.component';
 import { DetailComponent } from './components/club/detail/detail.component';
 import { RatingComponent } from './components/club/rating/rating.component';
 import { PostRatingComponent } from './components/club/post-rating/post-rating.component';
+import { SearchComponent } from './components/search/search.component';
 
 import { AlertService } from './service/alert.service';
+import { SearchService } from './service/search.service';
+
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { PostClubComponent } from './components/club/post-club/post-club.component';
-import { SearchComponent } from './components/search/search.component';
+
+import { InfiniteScrollerDirective } from './directive/infinite-scroller.directive';
 
 @NgModule({
   declarations: [
@@ -53,6 +57,7 @@ import { SearchComponent } from './components/search/search.component';
     PostRatingComponent,
     PostClubComponent,
     SearchComponent,
+    InfiniteScrollerDirective,
   ],
   imports: [
     BrowserModule,
@@ -66,6 +71,7 @@ import { SearchComponent } from './components/search/search.component';
   providers: [
     AuthenticationService,
     AlertService,
+    SearchService,
     AuthGuard,
   ],
   bootstrap: [AppComponent]

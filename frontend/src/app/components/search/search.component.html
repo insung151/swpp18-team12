@@ -1,10 +1,11 @@
 <app-header></app-header>
 
 <br>
+<!-- Input Search Term -->
 <span class="ui search">
   <div class="ui fluid action input">
-    <input class="prompt" type="text" placeholder="search name">
-    <button class="ui primary button" (click)="search()">Search</button>
+    <input [(ngModel)]="searchTerm" class="prompt" type="text" placeholder="search name">
+    <button class="ui primary button" (click)="searchButton()">Search</button>
   </div>
 </span>
 
@@ -13,31 +14,51 @@
 
 <div class="ui segments" *ngIf="disabled">
 
+  <!-- Choose Activity Type -->
   <div class="ui segment">
     <p>Activity Type</p>
-    <sui-multi-select placeholder="Activity Type" class="selection" [(ngModel)]="activity" [options]="options" [hasLabels]="!hideLabels">
+    <sui-multi-select placeholder="Activity Type" labelField="label" valueField="value" class="selection" [(ngModel)]="activity"
+      [options]="options" [hasLabels]="!hideLabels">
       <sui-select-option *ngFor="let option of activityOption" [value]="option">
       </sui-select-option>
     </sui-multi-select>
   </div>
 
+  <!-- Choose Category -->
   <div class="ui segment">
     <p>Category</p>
-    <sui-multi-select placeholder="Category" class="selection" [(ngModel)]="category" [options]="options" [hasLabels]="!hideLabels">
+    <sui-multi-select placeholder="Category" labelField="label" valueField="value" class="selection" [(ngModel)]="category"
+      [options]="options" [hasLabels]="!hideLabels">
       <sui-select-option *ngFor="let option of categoryOption" [value]="option">
       </sui-select-option>
     </sui-multi-select>
   </div>
 
+  <!-- Choose Subcategory -->
   <div class="ui segment">
-    <p>subcategory</p>
-    <sui-multi-select placeholder="Subcategory" class="selection" [(ngModel)]="subcategory" [options]="options" [hasLabels]="!hideLabels">
+    <p>Subcategory</p>
+    <sui-multi-select placeholder="Subcategory" labelField="label" valueField="value" class="selection" [(ngModel)]="subcategory"
+      [options]="options" [hasLabels]="!hideLabels">
       <sui-select-option *ngFor="let option of subcategoryOption" [value]="option">
       </sui-select-option>
     </sui-multi-select>
   </div>
+
+  <!-- Choose Tag label -->
+  <div class="ui segment">
+    <p><a class="ui tag label">Tags</a></p>
+    <sui-multi-select placeholder="Tags" [isSearchable]="true" class="selection" [(ngModel)]="tag" [options]="options"
+      [hasLabels]="!hideLabels">
+      <sui-select-option *ngFor="let option of tagOption" [value]="option">
+      </sui-select-option>
+    </sui-multi-select>
+  </div>
+
 </div>
 
-{{activity}}
-{{category}}
-{{subcategory}}
+<!-- element item is unstable. Change it with proper attribute -->
+<div *ngIf="club">
+  <ul id="infinite-scroller" appInfiniteScroller scrollPerecnt="70" immediateCallback="true" [scrollCallback]="scrollCallback">
+    <li *ngFor="let item of club">{{item.title}}</li>
+  </ul>
+</div>
