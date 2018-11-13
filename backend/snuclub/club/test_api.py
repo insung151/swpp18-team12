@@ -127,3 +127,28 @@ class ClubTestCase(APITestCase):
         # get detail
         resp = self.client.get(f'/api/club/2/club_detail/')
         self.assertEqual(resp.data['history'], "2001")
+
+        # change profile pic
+        new_profile = {
+            "profile_image": None
+        }
+        resp = self.client.put('/api/club/2/change_profile/', data=new_profile, format='json')
+        self.assertEqual(resp.status_code, 200)
+
+        # change admin
+        self.user2 = User.objects.create_user(
+            email='testemail2@email.com',
+            username='testuser2',
+            password='qwer1234',
+        )
+        self.user2_profile = UserProfile.objects.create(
+            user=self.user2
+        )
+        self.user2.save()
+        self.user2_profile.save()
+        new_admin = {
+            "admin": 'testuser2'
+        }
+        resp = self.client.put('/api/club/2/change_admin/', data=new_admin, format='json')
+        self.assertEqual(resp.status_code, 200)
+        self.assertEqual(Club.objects.get(name='testClub').admin.username, 'testuser2')
