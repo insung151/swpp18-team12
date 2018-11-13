@@ -1,7 +1,7 @@
 from django.shortcuts import render
 from rest_framework import status
 from rest_framework.generics import UpdateAPIView
-from rest_framework.permissions import AllowAny, IsAuthenticated
+from rest_framework.permissions import AllowAny, IsAuthenticated, IsAuthenticatedOrReadOnly
 from rest_framework.response import Response
 from rest_framework.views import APIView
 from accounts.models import UserProfile, User
@@ -9,9 +9,10 @@ from club.serializers import ClubSerializer, ClubDetailSerializer, ChangeProfile
 from club.models import Club
 from rest_framework.generics import ListAPIView
 from rest_framework.permissions import AllowAny
-
+from core.permissions import IsClubAdminOrReadOnly, IsClubDetailAdminOrReadOnly
 from club.user_rating.models import UserRating
 from club.user_rating.serializers import UserRatingListSerializer
+from django.core.exceptions import ObjectDoesNotExist
 
 
 class ClubUserRatingListView(ListAPIView):
@@ -37,69 +38,81 @@ class CreateClubApiView(APIView):
 
 
 class ClubDetailApiView(APIView):
-    permission_classes = (IsAuthenticated,)
+    permission_classes = (IsAuthenticatedOrReadOnly, IsClubDetailAdminOrReadOnly)
     serializer_class = ClubDetailSerializer
 
-    def post(self, request, *args, **kwargs):
-        serializer = self.serializer_class(data=request.data)
-        serializer.is_valid(raise_exception=True)
-        serializer.save(club=Club.objects.get(id=self.kwargs['club_id']))
-        return Response(serializer.data, status=status.HTTP_201_CREATED)
-
     def get(self, request, *args, **kwargs):
-        club_detail = Club.objects.get(id=self.kwargs['club_id']).clubdetail
-        serializer = self.serializer_class(club_detail)
-        return Response(serializer.data, status=status.HTTP_200_OK)
+        try:
+            club_detail = Club.objects.get(id=self.kwargs['club_id']).clubdetail
+            serializer = self.serializer_class(club_detail)
+            return Response(serializer.data, status=status.HTTP_200_OK)
+        except ObjectDoesNotExist:
+            return Response({"message":"Club does not exist"}, status=status.HTTP_404_NOT_FOUND)
 
     def put(self, request, *args, **kwargs):
-        club_detail = Club.objects.get(id=self.kwargs['club_id']).clubdetail
-        serializer = self.serializer_class(club_detail, data=request.data)
-        serializer.is_valid(raise_exception=True)
-        serializer.save()
-        return Response(serializer.data, status=status.HTTP_200_OK)
+        try:
+            club_detail = Club.objects.get(id=self.kwargs['club_id']).clubdetail
+            serializer = self.serializer_class(club_detail, data=request.data)
+            serializer.is_valid(raise_exception=True)
+            serializer.save()
+            return Response(serializer.data, status=status.HTTP_200_OK)
+        except ObjectDoesNotExist:
+            return Response({"message":"Club does not exist"}, status=status.HTTP_404_NOT_FOUND)
 
 
 class ClubShortApiView(APIView):
-    permission_classes = (IsAuthenticated,)
+    permission_classes = (IsAuthenticatedOrReadOnly,IsClubAdminOrReadOnly)
     serializer_class = ClubSerializer
     model = Club
 
     def put(self, request, *args, **kwargs):
-        club = Club.objects.get(id=self.kwargs['club_id'])
-        serializer = self.serializer_class(club, data=request.data)
-        serializer.is_valid(raise_exception=True)
-        serializer.save()
-        return Response(serializer.data, status=status.HTTP_200_OK)
+        try:
+            club = Club.objects.get(id=self.kwargs['club_id'])
+            serializer = self.serializer_class(club, data=request.data)
+            serializer.is_valid(raise_exception=True)
+            serializer.save()
+            return Response(serializer.data, status=status.HTTP_200_OK)
+        except ObjectDoesNotExist:
+            return Response({"message":"Club does not exist"}, status=status.HTTP_404_NOT_FOUND)
 
     def get(self, request, *args, **kwargs):
-        club = Club.objects.get(id=self.kwargs['club_id'])
-        serializer = self.serializer_class(club)
-        return Response(serializer.data, status=status.HTTP_200_OK)
+        try:
+            club = Club.objects.get(id=self.kwargs['club_id'])
+            serializer = self.serializer_class(club)
+            return Response(serializer.data, status=status.HTTP_200_OK)
+        except ObjectDoesNotExist:
+            return Response({"message":"Club does not exist"}, status=status.HTTP_404_NOT_FOUND)
 
 
-class ClubProfileImageApiView(UpdateAPIView):
-    permission_classes = (IsAuthenticated,)
+class ClubProfileImageApiView(APIView):
+    permission_classes = (IsClubAdminOrReadOnly,)
     model = Club
     serializer_class = ChangeProfileImageSerializer
 
-    def update(self, request, *args, **kwargs):
-        club = Club.objects.get(id=self.kwargs['club_id'])
-        new_image = self.serializer_class.validated_data.get('profile_image')
-        club.profile_image = new_image
-        club.save()
-        return Response({'message':'Success'}, status=status.HTTP_200_OK)
+    def put(self, request, *args, **kwargs):
+        try:
+            club = Club.objects.get(id=self.kwargs['club_id'])
+            new_image = self.serializer_class.validated_data.get('profile_image')
+            club.profile_image = new_image
+            club.save()
+            return Response({'message':'Success'}, status=status.HTTP_200_OK)
+        except ObjectDoesNotExist:
+            return Response({"message":"Club does not exist"}, status=status.HTTP_404_NOT_FOUND)
 
 
-class ClubAdminChangeApiView(UpdateAPIView):
-    permission_classes = (IsAuthenticated,)
+class ClubAdminChangeApiView(APIView):
+    permission_classes = (IsClubAdminOrReadOnly,)
     serializer_class = ChangeAdminSerializer
 
-    def update(self, request, *args, **kwargs):
-        club = Club.objects.get(id=self.kwargs['club_id'])
-        new_admin = self.serializer_class.validated_data.get('admin')
-        if User.objects.filter(username=new_admin).exists():
-           club.admin = new_admin
-           club.save()
-           return Response({'message': 'Success'}, status=status.HTTP_200_OK)
-        else:
-            return Response({'message': 'User does not exist!'}, status=status.HTTP_404_NOT_FOUND)
+    def put(self, request, *args, **kwargs):
+        try:
+            club = Club.objects.get(id=self.kwargs['club_id'])
+            new_admin = self.serializer_class.validated_data.get('admin')
+            if User.objects.filter(username=new_admin).exists():
+               club.admin = new_admin
+               club.save()
+               return Response({'message': 'Success'}, status=status.HTTP_200_OK)
+            else:
+                return Response({'message': 'User does not exist!'}, status=status.HTTP_404_NOT_FOUND)
+        except ObjectDoesNotExist:
+            return Response({"message":"Club does not exist"}, status=status.HTTP_404_NOT_FOUND)
